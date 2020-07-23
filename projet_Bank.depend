@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1595264807 source:/media/corine/Nouveau nom/Nouveau dossier/projet_Bank/main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1595259816 /media/corine/Nouveau nom/Nouveau dossier/projet_Bank/definitions_structures_fonctions.h
+
