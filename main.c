@@ -2,8 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-
+#include <windows.h>
 typedef struct
 {
     unsigned int jour;
@@ -21,8 +20,6 @@ typedef struct
     unsigned int numero_tel;
     DATE date;
 }CLIENT;
-
-
 
 void ajout_client()
 {
@@ -70,5 +67,24 @@ void modification_client()
 
 int main()
 {
+     int choix;
+    system("cls");
+    system("color 9");
+    printf("\n\n\t\t\t            KALATA BANK");
+    printf("\n\n\n\t\t\t\xB2\xB2\xB2\xB2\xB2\xB2\xB2 BIENVENUE MENU PRINCIPAL\xB2\xB2\xB2\xB2\xB2\xB2\xB2");
+    printf("\n\n\t\t1.GESTION DES CLIENTS \n\t\t2.GESTION DES COMPTE\n\t\t3.OPERATION\n\t\t4.QUITTEZ\n\n\n\t ENTREZ LE NUMERO CORRESPONDANT A VOTRE CHOIX: ");
+    scanf("%d",&choix);
+    system("cls");
+    switch(choix)
+    {
+        case 1: GESTION_des_clients();
+        break;
+        case 2:GESTION_des_comptes();
+        break;
+        case 3:OPERATION();
+        break;
+        case 4: QUITTEZ();
+        break;
+    }
     ajout_client();
 }
