@@ -1,8 +1,8 @@
-/*@ by corine*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <windows.h>
+
+
 typedef struct
 {
     unsigned int jour;
@@ -11,7 +11,7 @@ typedef struct
 }DATE;
 
 
- typedef struct
+struct
 {
     unsigned int id_client;
     char nom[50];
@@ -19,11 +19,13 @@ typedef struct
     char profession[50];
     unsigned int numero_tel;
     DATE date;
-}CLIENT;
+}CLIENT, Mise_jour;
 
-void ajout_client()
+
+
+void Ajout_client()
 {
-    CLIENT C;
+
     int choix = 1;
     FILE *fichier = NULL;
     fichier = fopen("Client.txt","a+");
@@ -31,41 +33,96 @@ void ajout_client()
     {
         printf("** Ajout d'un client ** \n");
         printf("Entrez l'identifiant du client: \n");
-        scanf("%d",&C.id_client);
+        scanf("%d",&CLIENT.id_client);
         fflush(stdin);
         printf("Entrez le nom du client: \n");
-        scanf("%s",C.nom);
+        scanf("%s",CLIENT.nom);
         fflush(stdin);
         printf("Entrez le prenom du client: \n");
-        scanf("%s",C.prenom);
+        scanf("%s",CLIENT.prenom);
         fflush(stdin);
         printf("Entrez sa profession: \n");
-        scanf("%s",C.profession);
+        scanf("%s",CLIENT.profession);
         fflush(stdin);
         printf("Entrez le numero_tel du client: \n");
-        scanf("%d",&C.numero_tel);
+        scanf("%d",&CLIENT.numero_tel);
         printf("Entrez la date d'ajout du client: \n");
-        scanf("%d/%d/%d",&C.date.jour,&C.date.mois,&C.date.annee);//ici, on récupère la date du jour d'ajout du client
-        printf("ID_client: %u \n NOM: %s \n PRENOM: %s \n PROFESSION: %s \n NUM_TEL: %u \n DATE_D'AJOUT: %u/%u/%u \n",C.id_client,C.nom,C.prenom,C.profession, C.numero_tel,C.date.jour, C.date.mois, C.date.annee);
+        scanf("%d/%d/%d",&CLIENT.date.jour,&CLIENT.date.mois,&CLIENT.date.annee);//ici, on récupère la date du jour d'ajout du client
+        printf("ID_client: %u \n NOM: %s \n PRENOM: %s \n PROFESSION: %s \n NUM_TEL: %u \n DATE_D'AJOUT: %u/%u/%u \n",CLIENT.id_client,CLIENT.nom,CLIENT.prenom,CLIENT.profession, CLIENT.numero_tel,CLIENT.date.jour, CLIENT.date.mois, CLIENT.date.annee);
         printf("Voulez-vous continuer d'ajouter les clients? (1/0) \n");
         scanf("%d",&choix);
-        fprintf(fichier,"%u;%s;%s;%s;%u;%u/%u/%u\n",C.id_client,C.nom,C.prenom,C.profession, C.numero_tel,C.date.jour, C.date.mois, C.date.annee);
+        fprintf(fichier,"%u;%s;%s;%s;%u;%u/%u/%u\n",CLIENT.id_client,CLIENT.nom,CLIENT.prenom,CLIENT.profession, CLIENT.numero_tel,CLIENT.date.jour, CLIENT.date.mois, CLIENT.date.annee);
 
     }while(choix == 1);
     fclose(fichier);
 }
 
-void modification_client()
+void Modification_client()
 {
-    int MAX = 1;
-    CLIENT C[MAX];
+    FILE *fichier = NULL;
+    FILE *fich_modifier;
+    fichier = fopen("client.txt","r");
+    fich_modifier = fopen("fichier_modifier.txt","w");
     printf("**Modification des informations du client**: \n");
+    printf("Entrez l'id du client dont vous voulez faire des modifications: ");
+    scanf("%d",&Mise_jour.id_client);
+    while(fscanf(fichier,"%u;%s;%s;%s;%u;%u/%u/%u\n",&CLIENT.id_client,&CLIENT.nom,&CLIENT.prenom,&CLIENT.profession,&CLIENT.numero_tel,&CLIENT.date.jour, &CLIENT.date.mois, &CLIENT.date.annee) != EOF)
+    {
+        int test = 0;
+        int choice = 0;
+        if(Mise_jour.id_client == CLIENT.id_client)
+        {
+
+           test = 1;
+           printf("vous allez modifier les donnees de: %s",CLIENT.nom);
+           printf("Voulez-vous modifier \n1.Le nom \n2.Le prenom \n3.La Profession \n4.Le Numero_tel \n5.La Date");
+           switch(choice)
+                {
+                    case 1:
+                        printf("Entrez le nouveau nom: \n");
+                        scanf("%s",Mise_jour.nom);
+                        fprintf(fich_modifier,"%u;%s;%s;%s;%u;%u/%u/%u\n",Mise_jour.id_client,Mise_jour.nom,Mise_jour.prenom,Mise_jour.profession, Mise_jour.numero_tel,Mise_jour.date.jour, Mise_jour.date.mois, Mise_jour.date.annee);
+
+                    break;
+                    case 2:
+                        printf("Entrez le nouveau prenom: \n");
+                        scanf("%s",Mise_jour.prenom);
+                        fprintf(fich_modifier,"%u;%s;%s;%s;%u;%u/%u/%u\n",Mise_jour.id_client,Mise_jour.nom,Mise_jour.prenom,Mise_jour.profession, Mise_jour.numero_tel,Mise_jour.date.jour, Mise_jour.date.mois, Mise_jour.date.annee);
+                    break;
+                    case 3:
+                        printf("Entrez la nouvelle profession: \n");
+                        scanf("%s",Mise_jour.profession);
+                        fprintf(fich_modifier,"%u;%s;%s;%s;%u;%u/%u/%u\n",Mise_jour.id_client,Mise_jour.nom,Mise_jour.prenom,Mise_jour.profession, Mise_jour.numero_tel,Mise_jour.date.jour, Mise_jour.date.mois, Mise_jour.date.annee);
+                    break;
+                    case 4:
+                        printf("Entrez le nouveau numero_tel: \n");
+                        scanf("%d",&Mise_jour.numero_tel);
+                        fprintf(fich_modifier,"%u;%s;%s;%s;%u;%u/%u/%u\n",Mise_jour.id_client,Mise_jour.nom,Mise_jour.prenom,Mise_jour.profession, Mise_jour.numero_tel,Mise_jour.date.jour, Mise_jour.date.mois, Mise_jour.date.annee);
+                    break;
+                    case 5:
+                        printf("Entrez la nouvelle date: \n");
+                        scanf("%u/%u/%u",&Mise_jour.date.jour,&Mise_jour.date.mois,&Mise_jour.date.annee);
+                        fprintf(fich_modifier,"%u;%s;%s;%s;%u;%u/%u/%u\n",Mise_jour.id_client,Mise_jour.nom,Mise_jour.prenom,Mise_jour.profession, Mise_jour.numero_tel,Mise_jour.date.jour, Mise_jour.date.mois, Mise_jour.date.annee);
+                }
+
+                        fprintf(fich_modifier,"%u;%s;%s;%s;%u;%u/%u/%u\n",Mise_jour.id_client,Mise_jour.nom,Mise_jour.prenom,Mise_jour.profession, Mise_jour.numero_tel,Mise_jour.date.jour, Mise_jour.date.mois, Mise_jour.date.annee);
+                printf("Changement effectue!!");
+        }
+        else
+            printf("l'id entre n'existe pas dans le fichier!!!");
+        fclose(fichier);
+        fclose(fich_modifier);
+        remove("fich_modifier.txt");
+        rename("fich_modifier.txt","client.txt");
+
+    }
+
 }
 
 
 
 
-int main()
+nt main()
 {
      int choix;
     system("cls");
@@ -88,3 +145,4 @@ int main()
     }
     ajout_client();
 }
+
