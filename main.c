@@ -118,11 +118,7 @@ void Modification_client()
     }
 
 }
-
-
-
-
-nt main()
+int main()
 {
      int choix;
     system("cls");
@@ -130,19 +126,21 @@ nt main()
     printf("\n\n\t\t\t            KALATA BANK");
     printf("\n\n\n\t\t\t\xB2\xB2\xB2\xB2\xB2\xB2\xB2 BIENVENUE MENU PRINCIPAL\xB2\xB2\xB2\xB2\xB2\xB2\xB2");
     printf("\n\n\t\t1.GESTION DES CLIENTS \n\t\t2.GESTION DES COMPTE\n\t\t3.OPERATION\n\t\t4.QUITTEZ\n\n\n\t ENTREZ LE NUMERO CORRESPONDANT A VOTRE CHOIX: ");
-    scanf("%d",&choix);
+   Ajout_client();
+    //scanf("%d",&choix);
+
     system("cls");
-    switch(choix)
+    /*switch(choix)
     {
-        case 1: GESTION_des_clients();
+        case 1: //GESTION_des_clients();
         break;
-        case 2:GESTION_des_comptes();
+        case 2://GESTION_des_comptes();
         break;
-        case 3:OPERATION();
+        case 3://OPERATION();
         break;
-        case 4: QUITTEZ();
+        case 4: //QUITTEZ();
         break;
-    }
-    ajout_client();
+    }*/
+
 }
 
