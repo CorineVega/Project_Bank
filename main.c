@@ -1,6 +1,8 @@
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <windows.h>
 
 
 typedef struct
@@ -31,7 +33,9 @@ void Ajout_client()
     fichier = fopen("Client.txt","a+");
     do
     {
-        printf("** Ajout d'un client ** \n");
+        printf("\n\n\t\t\t            KALATA BANK");
+    printf("\n\n\n\t\t\t\xB2\xB2\xB2\xB2\xB2\xB2\xB2 ** Ajout d'un client **\xB2\xB2\xB2\xB2\xB2\xB2\xB2");
+        printf(" \n\n");
         printf("Entrez l'identifiant du client: \n");
         scanf("%d",&CLIENT.id_client);
         fflush(stdin);
@@ -118,21 +122,49 @@ void Modification_client()
     }
 
 }
+
+void GESTION_des_clients()
+{
+    int choix=0;
+     printf("\n\n\t\t\t            KALATA BANK");
+    printf("\n\n\n\t\t\t\xB2\xB2\xB2\xB2\xB2\xB2\xB2 BIENVENUE MENU GESTION DES COMPTE \xB2\xB2\xB2\xB2\xB2\xB2\xB2");
+    printf("\n\n\t\t1.AJOUTER UN CLIENT \n\t\t2.MODIFIER LES INFPORMATION D'UN CLIENTS \n\t\t3.SUPPRESION D'UN CLIENTS\n\t\t4.RECHERCHE D'UN CLIENTS\n\t\t5.AFFICHER LA LISTE DES CLIENTS\n\t\t6.QUITTEZ\n\n\t ENTREZ LE NUMERO CORRESPONDANT A VOTRE CHOIX: ");
+     scanf("%d",&choix);
+     system("cls");
+     switch(choix)
+     {
+        case 1:Ajout_client();
+            break;
+        case 2:Modification_client();
+            break;
+        case 3://suppresion_client();
+            break;
+        case 4://recherche_dun_client();
+            break;
+        case 5://afficher_les_client();
+            break;
+        case 6:main();
+            break;
+//         default;
+    }
+
+
+}
+
 int main()
 {
      int choix;
-    system("cls");
     system("color 9");
     printf("\n\n\t\t\t            KALATA BANK");
     printf("\n\n\n\t\t\t\xB2\xB2\xB2\xB2\xB2\xB2\xB2 BIENVENUE MENU PRINCIPAL\xB2\xB2\xB2\xB2\xB2\xB2\xB2");
     printf("\n\n\t\t1.GESTION DES CLIENTS \n\t\t2.GESTION DES COMPTE\n\t\t3.OPERATION\n\t\t4.QUITTEZ\n\n\n\t ENTREZ LE NUMERO CORRESPONDANT A VOTRE CHOIX: ");
-   Ajout_client();
-    //scanf("%d",&choix);
+
+    scanf("%d",&choix);
 
     system("cls");
-    /*switch(choix)
+    switch(choix)
     {
-        case 1: //GESTION_des_clients();
+        case 1: GESTION_des_clients();
         break;
         case 2://GESTION_des_comptes();
         break;
@@ -140,7 +172,8 @@ int main()
         break;
         case 4: //QUITTEZ();
         break;
-    }*/
+//        default;
+    }
 
 }
 
