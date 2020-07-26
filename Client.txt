@@ -1,3 +1,0 @@
-125;tom;corine;etudiante;625849;15/12/46
-1115548;alicia;pauline;militire;68888888;25/7/2020
-1;1;1;1;1;1/1/0

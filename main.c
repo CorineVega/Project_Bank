@@ -11,12 +11,6 @@ typedef struct
     unsigned int annee;
 }DATE;
 /*fin de la structure date*/
-<<<<<<< HEAD
-
-
-
-=======
->>>>>>> 0612e0c634f99ede88416e52fa574268b3edf95b
 /*declaration de la structure clients*/
  typedef struct
 {
@@ -190,27 +184,95 @@ void Modification_client()
 /*PROCEDURE SUPPRIMER CLIENTS*/
 void supression_client()
 {
-    char choix[] = "N";
+    int choix = 1;
     CLIENT c_sup;
     FILE *client = NULL;
     FILE *fich_sup = NULL;
     fopen("client.txt","r");
     fopen("fich_sup.txt","w");
-    printf("** SUPRESSION DE CLIENT **\n");
-    fflush(stdin);
-    printf("Veuillez entrer l'id du client que vous voulez suprimer: \n");
-    scanf("%d",&c_sup.id_client);
-    while(fscanf(client,"%u;%s;%s;%s;%u;%u/%u/%u\n",&C.id_client,&C.nom,&C.prenom,&C.profession,&C.numero_tel,&C.date.jour, &C.date.mois, &C.date.annee) != EOF)
+    printf("** SUPRESSION DE CLIENT **\n\n");
+    printf("\n1.Par l'id du client \n2.Par le nom du client ");
+    printf("choisir comment vous voulez que la suppression se passe: \n");
+    scanf("%d",&choix);
+    switch(choix)
     {
-        if (C.id_client != c_sup.id_client)
+        case 1:
+            printf("Veuillez entrer l'id du client que vous voulez suprimer: \n");
+            scanf("%d",&c_sup.id_client);
+            while(fscanf(client,"%u") == 1)
         {
-            fprintf(fich_sup,"%u;%s;%s;%s;%u;%u/%u/%u\n",&c_sup.id_client,&c_sup.nom,&c_sup.prenom,&c_sup.profession,&c_sup.numero_tel,&c_sup.date.jour, &c_sup.date.mois, &c_sup.date.annee);
+            fgetc(client);
+            fscanf(client,"%[^;]s",C.nom);
+            fgetc(client);
+            fscanf(client,"%[^;]s",C.prenom);
+            fgetc(client);
+            fscanf(client,"%[^;]s",C.profession);
+            fgetc(client);
+            fscanf(client,"%d",&C.numero_tel);
+            fgetc(client);
+            fscanf(client,"%d",&C.date.jour);
+            fgetc(client);
+            fscanf(client,"%d",&C.date.mois);
+            fgetc(client);
+            fscanf(client,"%d",&C.date.annee);
+            if (C.id_client != c_sup.id_client)
+            {
+                fprintf(fich_sup,"%u;%s;%s;%s;%u;%u/%u/%u\n",&c_sup.id_client,&c_sup.nom,&c_sup.prenom,&c_sup.profession,&c_sup.numero_tel,&c_sup.date.jour, &c_sup.date.mois, &c_sup.date.annee);
+            }
         }
+        fclose(client);
+        fclose(fich_sup);
+        printf("voulez-vous confirmer la suppression?(1/0): ");
+            scanf("%d",&choix);
+            if(choix == 1)
+            {
+                remove(client);
+                rename("fich_supp.txt","client.txt");
+            }
+            else
+                printf("Vous n'avez pas supprimer le client!!");
+        break;
+        case 2:
+            printf("Veuillez entrer le nom du client que vous voulez supprimer: ");
+            scanf("%s",c_sup.nom);
+            while(fscanf(client,"%u") == 1)
+        {
+            fgetc(client);
+            fscanf(client,"%[^;]s",C.nom);
+            fgetc(client);
+            fscanf(client,"%[^;]s",C.prenom);
+            fgetc(client);
+            fscanf(client,"%[^;]s",C.profession);
+            fgetc(client);
+            fscanf(client,"%d",&C.numero_tel);
+            fgetc(client);
+            fscanf(client,"%d",&C.date.jour);
+            fgetc(client);
+            fscanf(client,"%d",&C.date.mois);
+            fgetc(client);
+            fscanf(client,"%d",&C.date.annee);
+            if(strcmp(C.nom, c_sup.nom))
+            {
+                fprintf(fich_sup,"%u;%s;%s;%s;%u;%u/%u/%u\n",&c_sup.id_client,&c_sup.nom,&c_sup.prenom,&c_sup.profession,&c_sup.numero_tel,&c_sup.date.jour, &c_sup.date.mois, &c_sup.date.annee);
+            }
+        }
+            fclose(client);
+            fclose(fich_sup);
+            printf("voulez-vous confirmer la suppression?(1/0): ");
+            scanf("%d",&choix);
+            if(choix == 1)
+            {
+                remove(client);
+                rename("fich_supp.txt","client.txt");
+            }
+            else
+                printf("Vous n'avez pas supprimer le client!!");
+        break;
+        default:
+                printf("Choix non disponible!!");
+
     }
-    fclose(client);
-    fclose(fich_sup);
-    remove(client);
-    rename("fich_supp.txt","client.txt");
+
 }
 /*FINDE PROCEDURE SUPPRIMER*/
 
@@ -327,13 +389,13 @@ void fermeture_compte()
     scanf("%d",&check.id_compte);
      while(fscanf(compte,"%d") == 1);
      {
-         fscanf(compte, "%[|]d",comptes.id_compte);
+         fscanf(compte, "%[^|]d",comptes.id_compte);
          fgetc(compte);
-         fscanf(compte, "%[|]d",comptes.id_client);
+         fscanf(compte, "%[^|]d",comptes.id_client);
          fgetc(compte);
-         fscanf(compte, "%[|]d",comptes.solde);
+         fscanf(compte, "%[^|]d",comptes.solde);
          fgetc(compte);
-         fscanf(compte, "%[|]s",comptes.derniere_operation);
+         fscanf(compte, "%[^|]s",comptes.derniere_operation);
          fgetc(compte);
          if(check.id_compte != comptes.id_compte)
          {
