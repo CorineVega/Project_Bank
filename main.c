@@ -11,7 +11,16 @@ typedef struct
     unsigned int annee;
 }DATE;
 /*fin de la structure date*/
-
+typedef struct
+{
+    unsigned int id_client;
+    char nom[50];
+    char prenom[50];
+    char profession[50];
+    unsigned int numero_tel;
+    DATE date;
+}CLIENT, Mise_jour;
+CLIENT C;
 
 
 /*declaration de la structure clients*/
@@ -63,25 +72,6 @@ void GESTION_des_clients()
 /*fin de procedures gestion client*/
 
 /*procedure d'ajout d'un client*/
-<<<<<<< HEAD
-
-
-
-
-
-typedef struct
-{
-    unsigned int id_client;
-    char nom[50];
-    char prenom[50];
-    char profession[50];
-    unsigned int numero_tel;
-    DATE date;
-}CLIENT, Mise_jour;
-CLIENT C;
-=======
->>>>>>> 6f5d448ea541a4295cb24161f23a4fb4bc43932c
-
 
 
 void Ajout_client()
