@@ -11,6 +11,12 @@ typedef struct
     unsigned int annee;
 }DATE;
 /*fin de la structure date*/
+<<<<<<< HEAD
+
+
+
+=======
+>>>>>>> 0612e0c634f99ede88416e52fa574268b3edf95b
 /*declaration de la structure clients*/
  typedef struct
 {
@@ -53,11 +59,11 @@ void GESTION_des_clients()
             break;
             case 2:Modification_client();
             break;
-            case 3://suppresion_clients();
+            case 3:supression_client();
             break;
-            case 4://recherche_client();
+            case 4:recherche_client();
             break;
-            case 5://afficher_liste_clienrs();
+            case 5:afficher_liste_clients();
             break;
             case 6:main();
             break;
@@ -102,7 +108,9 @@ void Ajout_client()
     }while(choix == 1);
     fclose(client);
 }
+/*FINDE PROCEDURE AJOUT CLIENTS*/
 
+/*PROCEDURE MODIFCATION CLIENT*/
 void Modification_client()
 {
 
@@ -177,7 +185,9 @@ void Modification_client()
         rename("fich_modifier.txt","client.txt");
 
 }
+/*FIN DE PROCEDURE MODIFIER CLIENTS*/
 
+/*PROCEDURE SUPPRIMER CLIENTS*/
 void supression_client()
 {
     char choix[] = "N";
@@ -202,8 +212,10 @@ void supression_client()
     remove(client);
     rename("fich_supp.txt","client.txt");
 }
+/*FINDE PROCEDURE SUPPRIMER*/
 
-void Recherche()
+/*PROCEDURE RECHERCHE CLIENTS*/
+void recherche_client()
 {
     CLIENT C_rech;
     FILE *client = NULL;
@@ -211,15 +223,35 @@ void Recherche()
     printf("** RECHERCHE D'UN CLIENT** \n");
     printf("Enter l'id du client que vous chercher: ");
     scanf("%d",&C_rech.id_client);
-    while(fscanf(client,"%u;%s;%s;%s;%u;%u/%u/%u\n",&C.id_client,&C.nom,&C.prenom,&C.profession,&C.numero_tel,&C.date.jour, &C.date.mois, &C.date.annee) != EOF)
+    while(fscanf(client,"%u;\t%s;\t%s;\t%s;\t%u;\t%u/%u/%u\n",&C.id_client,&C.nom,&C.prenom,&C.profession,&C.numero_tel,&C.date.jour, &C.date.mois, &C.date.annee) != EOF)
     {
         if (C.id_client == C_rech.id_client)
             printf("Le candidat que vous chercher a les informations suivantes: \n NOM: %s \n PRENOM: %s PROFESSION: %s NUM_TEL: %u DATE: %u/%u/%u \n", C.nom, C.prenom, C.profession, C.numero_tel, C.date.jour, C.date.mois, C.date.annee);
     }
     fclose(client);
 }
+/*FIN DE PROCEDURE RECHERHCHE CLIENTS*/
 
-/*fin de la procedure modifier*/
+/*PROCEDURE AFFICHE LISTE DES CLIENTS */
+void afficher_liste_clients()
+{
+
+    FILE *client = NULL;
+    client = fopen("Client.txt","r");
+    do{
+        printf("ID CLIENTS | NOM | PRENOM | PROFESSION |NUMERO DE TEL /jj/mm/aaaa\n");
+        printf("%u;%s;%s;%s;%u;%u/%u/%u\n",C.id_client,C.nom,C.prenom,C.profession, C.numero_tel,C.date.jour, C.date.mois, C.date.annee);
+    }
+    while(fscanf(client,"%u;%s;%s;%s;%u;%u/%u/%u\n",&C.id_client,&C.nom,&C.prenom,&C.profession,&C.numero_tel,&C.date.jour, &C.date.mois, &C.date.annee) != EOF);
+    fclose(client);
+}
+/*FIN DE PROCEDURE */
+
+
+
+
+/*FIN DE PROCEDURE AFFICHE CLIENTS*/
+
 /***
 
  supprimer recherche et affiche clients
@@ -332,6 +364,16 @@ void affichage_compte()
     }
 /*fin de la procedure affichage des compte*/
 
+
+
+
+
+
+
+
+
+
+
 int main()
 {    system("cls");
      int choix;
@@ -344,17 +386,13 @@ int main()
     system("cls");
     switch(choix)
     {
-        case 1:
-                GESTION_des_clients();
+        case 1:GESTION_des_clients();
         break;
-        case 2:
-                GESTION_des_comptes();
+        case 2:GESTION_des_comptes();
         break;
-        case 3:
-                //OPERATION();
+        case 3://OPERATION();
         break;
-        case 4:
-                //QUITTEZ();
+        case 4://QUITTEZ();
         break;
         default:
             printf("Choix non disponible!!");
