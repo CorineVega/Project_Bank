@@ -276,7 +276,7 @@ void nouveau_compte()
         printf("Voulez-vous continuer d'ajouter un nouveau compte?(1/0): ");
         scanf("%d",&choix);
         fflush(stdin);
-        fprintf(compte,"%d | %d %d | %s \n",comptes.id_compte,comptes.id_client,comptes.solde,comptes.derniere_operation);
+        fprintf(compte,"%d | %d | %d | %s \n",comptes.id_compte,comptes.id_client,comptes.solde,comptes.derniere_operation);
 
     }while(choix == 1);
         fclose(compte);
@@ -286,17 +286,26 @@ void nouveau_compte()
 /*procedure fermeture de compte*/
 void fermeture_compte()
 {
-    FILE *compte;
-    compte=fopen("compte.txt","r");
+    FILE *compte = NULL;
+    compte = fopen("compte.txt","r+");
     FILE *supp_compte;
-    supp_compte=fopen("supp_compte.txt","w");
-    printf("entrer le  numero d'identification du compte: ");
+    supp_compte = fopen("supp_compte.txt","w+");
+    printf("SUPPRESSION D'UN COMPTE: ");
+    printf("entrer le  numero d'identification du compte que vous voulez supprimer: ");
     scanf("%d",&check.id_compte);
-     while(fscanf(compte,"%d | %s | %d | %s",comptes.id_compte,comptes.id_client,comptes.solde,comptes.derniere_operation) !=EOF);
+     while(fscanf(compte,"%d") == 1);
      {
-         if(check.id_compte!=comptes.id_compte)
+         fscanf(compte, "%[|]d",comptes.id_compte);
+         fgetc(compte);
+         fscanf(compte, "%[|]d",comptes.id_client);
+         fgetc(compte);
+         fscanf(compte, "%[|]d",comptes.solde);
+         fgetc(compte);
+         fscanf(compte, "%[|]s",comptes.derniere_operation);
+         fgetc(compte);
+         if(check.id_compte != comptes.id_compte)
          {
-            fprintf(supp_compte,"%d | %s | %d | %s",comptes.id_compte,comptes.id_client,comptes.solde,comptes.derniere_operation);
+            fprintf(supp_compte,"%d | %d | %d | %s",comptes.id_compte,comptes.id_client,comptes.solde,comptes.derniere_operation);
          }
      }
      fclose(compte);
