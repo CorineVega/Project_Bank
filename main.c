@@ -12,7 +12,10 @@ typedef struct
     unsigned int annee;
 }DATE;
 /*fin de la structure date*/
+<<<<<<< HEAD
 
+=======
+>>>>>>> 51da22cfe0b4e79c1957ee28e66eec1abdb9a1f9
 /*declaration de la structure clients*/
  typedef struct
 {
@@ -342,8 +345,12 @@ void GESTION_des_comptes()
 
 void nouveau_compte()
 {
+<<<<<<< HEAD
     int choix=0;
+=======
+>>>>>>> 51da22cfe0b4e79c1957ee28e66eec1abdb9a1f9
     FILE *compte = NULL;
+    int choix = 0;
     compte = fopen("compte.txt","a+");
     do
     {
@@ -362,12 +369,17 @@ void nouveau_compte()
         printf("Voulez-vous continuer d'ajouter un nouveau compte?(1/0): ");
         scanf("%d",&choix);
         fflush(stdin);
+<<<<<<< HEAD
         fprintf(compte,"%d | %d | %d | %s \n",comptes.id_compte,comptes.id_client,comptes.solde,comptes.derniere_operation);
         printf("voulez vous ajouter un autres compte?..");
         scanf("%d",choix);
     }
     while(choix=='O'|| choix=='o');
 
+=======
+        fprintf(compte,"%d | %d | %d | %s \n",comptes.id_compte,comptes.id_client,comptes.solde,comptes.derniere_operation);
+    }while(choix == 1);
+>>>>>>> 51da22cfe0b4e79c1957ee28e66eec1abdb9a1f9
     fclose(compte);
 }
 /*fin de procedure nouveau compte*/
