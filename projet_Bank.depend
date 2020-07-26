@@ -6,7 +6,18 @@
 
 1595259816 /media/corine/Nouveau nom/Nouveau dossier/projet_Bank/definitions_structures_fonctions.h
 
-1595726299 source:c:\users\hp\project_bank\main.c
+1595775506 source:c:\users\hp\project_bank\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1595773462 source:/home/corine/Project_Bank/main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
