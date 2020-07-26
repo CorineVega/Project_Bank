@@ -12,10 +12,7 @@ typedef struct
     unsigned int annee;
 }DATE;
 /*fin de la structure date*/
-<<<<<<< HEAD
 
-=======
->>>>>>> 51da22cfe0b4e79c1957ee28e66eec1abdb9a1f9
 /*declaration de la structure clients*/
  typedef struct
 {
@@ -82,7 +79,8 @@ void Ajout_client()
     client = fopen("Client.txt","a+");
     do
     {
-        printf("** AJOUT D'UN CLIENT ** \n\n");
+        system("cls");
+        printf("\n\n\n\t\t\t\xB2\xB2\xB2\xB2\xB2\xB2\xB2 ** AJOUT D'UN CLIENT **\xB2\xB2\xB2\xB2\xB2\xB2\xB2\n\n");
         printf("Entrez l'identifiant du client: \n");
         scanf("%d",&C.id_client);
         fflush(stdin);
@@ -100,11 +98,15 @@ void Ajout_client()
         printf("Entrez la date d'ajout du client: \n");
         scanf("%d/%d/%d",&C.date.jour,&C.date.mois,&C.date.annee);//ici, on récupère la date du jour d'ajout du client
         printf("ID_client: %u \n NOM: %s \n PRENOM: %s \n PROFESSION: %s \n NUM_TEL: %u \n DATE_D'AJOUT: %u/%u/%u \n",C.id_client,C.nom,C.prenom,C.profession, C.numero_tel,C.date.jour, C.date.mois, C.date.annee);
+        fprintf(client,"%u;%s;%s;%s;%u;%u/%u/%u\n",C.id_client,C.nom,C.prenom,C.profession, C.numero_tel,C.date.jour, C.date.mois, C.date.annee);
         printf("Voulez-vous continuer d'ajouter les clients? (1/0) \n");
         scanf("%d",&choix);
-        fprintf(client,"%u;%s;%s;%s;%u;%u/%u/%u\n",C.id_client,C.nom,C.prenom,C.profession, C.numero_tel,C.date.jour, C.date.mois, C.date.annee);
 
-    }while(choix == 1);
+        if (choix ==0)
+            system("cls");
+            GESTION_des_clients();
+        }while(choix == 1);
+
     fclose(client);
 }
 /*FINDE PROCEDURE AJOUT CLIENTS*/
@@ -311,6 +313,7 @@ void afficher_liste_clients()
     }
     while(fscanf(client,"%u;%s;%s;%s;%u;%u/%u/%u\n",&C.id_client,&C.nom,&C.prenom,&C.profession,&C.numero_tel,&C.date.jour, &C.date.mois, &C.date.annee) != EOF);
     fclose(client);
+    GESTION_des_clients();
 }
 /*FIN DE PROCEDURE AFFICHE CLIENTS*/
 
@@ -325,7 +328,7 @@ void GESTION_des_comptes()
      scanf("%d",&choix);
      switch(choix)
      {
-            case 1://nouveau_compte();
+            case 1:nouveau_compte();
             break;
             case 2://consultation_des_compte();
             break;
@@ -345,8 +348,6 @@ void GESTION_des_comptes()
 
 void nouveau_compte()
 {
-
-
     FILE *compte = NULL;
     int choix = 0;
     compte = fopen("compte.txt","a+");
@@ -455,8 +456,25 @@ void GESTION_des_operation()
 /*procedure retrait*/
 void retrait()
 {
+ FILE *compte = NULL;
+    compte =fopen("compte.txt","a+");
+    unsigned int idcompte_debit;
+    printf("ENTRER L'ID DU COMPTE A DEBITER: ");
+    scanf("%u",idcompte_debit);
+    unsigned int somme_debit=0;
+    do{
+        if(idcompte_debit == comptes.id_compte)
+        {
+            printf("ENTRER LE MONTANT A DEBITER:FCFA ");
+            scanf("%u",&somme_debit);
+            comptes.solde-=somme_debit;
+            fprintf(compte,"%d | %d | %d | %s \n",comptes.id_compte,comptes.id_client,comptes.solde,comptes.derniere_operation);
+            printf("\n\nDEBIT EFFECTUER AVEC SUCCESS!!!!");
 
-    printf("hello");
+        }
+    }
+    while (fscanf(compte,"%s | %s | %d | %s",comptes.id_compte,comptes.id_client,comptes.solde,comptes.derniere_operation)!=EOF);
+        fclose(compte);
 
 }
 /*fin de procedure retrait*/
@@ -465,7 +483,25 @@ void retrait()
 
 void virement()
 {
-    printf("hi");
+    FILE *compte = NULL;
+    compte =fopen("compte.txt","a+");
+    unsigned int idcompte_credit;
+    printf("ENTRER L'ID DU COMPTE A CREDITER: ");
+    scanf("%u",idcompte_credit);
+    unsigned int somme_debit=0;
+    do{
+        if(idcompte_credit == comptes.id_compte)
+        {
+            printf("ENTRER LE MONTANT A VIRER:FCFA ");
+            scanf("%u",&somme_debit);
+            comptes.solde+=somme_debit;
+            fprintf(compte,"%d | %d | %d | %s \n",comptes.id_compte,comptes.id_client,comptes.solde,comptes.derniere_operation);
+            printf("\n\nVIREMENT EFFECTUER AVEC SUCCESS!!!!");
+
+        }
+    }
+    while (fscanf(compte,"%s | %s | %d | %s",comptes.id_compte,comptes.id_client,comptes.solde,comptes.derniere_operation)!=EOF);
+        fclose(compte);
 
 }
 /*fin de procedure virement*/
