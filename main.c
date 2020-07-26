@@ -185,7 +185,7 @@ void GESTION_des_comptes()
      {
             case 1:nouveau_compte();
             break;
-            case 2:consultation_des_compte();
+            case 2://consultation_des_compte();
             break;
             case 3:fermeture_compte();
             break;
@@ -208,11 +208,11 @@ void nouveau_compte()
     printf("Entrer le numero d'identification du compte:  ");
     scanf("%d",&comptes.id_compte);
     printf("Entrer le numero d'identification du client:  ");
-    scanf("%d",comptes.id_client);
+    scanf("%d",&comptes.id_client);
      printf("Entrer solde:  ");
     scanf("%d",&comptes.solde);
      printf("quelle est la derniere operation:  ");
-    scanf("%s",comptes.derniere_operation);
+    scanf("%s",&comptes.derniere_operation);
 
         fprintf(compte,"%d | %d %d | %s \n",comptes.id_compte,comptes.id_client,comptes.solde,comptes.derniere_operation);
     fclose(compte);
