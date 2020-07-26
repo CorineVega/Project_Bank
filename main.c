@@ -12,12 +12,7 @@ typedef struct
     unsigned int annee;
 }DATE;
 /*fin de la structure date*/
-<<<<<<< HEAD
-=======
 
-
-
->>>>>>> 2c48f72a184d91379bdc5fce2385d9b8a5962f14
 /*declaration de la structure clients*/
  typedef struct
 {
@@ -327,7 +322,7 @@ void GESTION_des_comptes()
      scanf("%d",&choix);
      switch(choix)
      {
-            case 1:nouveau_compte();
+            case 1://nouveau_compte();
             break;
             case 2://consultation_des_compte();
             break;
@@ -344,12 +339,10 @@ void GESTION_des_comptes()
 /*fin de la procedure gestion des comptes*/
 
 /*procedure nouveau compte*/
+
 void nouveau_compte()
 {
-<<<<<<< HEAD
-    FILE *compte;
-=======
-    int choix;
+    int choix=0;
     FILE *compte = NULL;
     compte = fopen("compte.txt","a+");
     do
@@ -370,24 +363,18 @@ void nouveau_compte()
         scanf("%d",&choix);
         fflush(stdin);
         fprintf(compte,"%d | %d | %d | %s \n",comptes.id_compte,comptes.id_client,comptes.solde,comptes.derniere_operation);
->>>>>>> 1d6a1fb34ea252b7a02e4991285bf032140de6ee
+        printf("voulez vous ajouter un autres compte?..");
+        scanf("%d",choix);
+    }
+    while(choix=='O'|| choix=='o');
 
-    compte=fopen("compte.txt","a");
-    printf("Entrer le numero d'identification du compte:  ");
-    scanf("%d",&comptes.id_compte);
-    printf("Entrer le numero d'identification du client:  ");
-    scanf("%d",&comptes.id_client);
-     printf("Entrer solde:  ");
-    scanf("%d",&comptes.solde);
-     printf("quelle est la derniere operation:  ");
-    scanf("%s",&comptes.derniere_operation);
-
-        fprintf(compte,"%d | %d %d | %s \n",comptes.id_compte,comptes.id_client,comptes.solde,comptes.derniere_operation);
     fclose(compte);
 }
 /*fin de procedure nouveau compte*/
 
+
 /*procedure fermeture de compte*/
+
 void fermeture_compte()
 {
     FILE *compte = NULL;
@@ -458,13 +445,7 @@ void GESTION_des_operation()
             default:
                 printf("entrez un choix valide svp...");
                 break;
-
      }
-
-
-
-
-
 }
 
 /*FIN DE FONCTION*/
@@ -487,7 +468,16 @@ void virement()
 }
 /*fin de procedure virement*/
 
+/*quittez lz programme*/
+void QUITTEZ()
+{
+    system("cls");
+    printf("a bientot.............");
 
+
+}
+
+/*fin de fonction*/
 
 /*fonction principal main*/
 int main()
@@ -506,9 +496,9 @@ int main()
         break;
         case 2:GESTION_des_comptes();
         break;
-        case 3://OPERATION();
+        case 3:GESTION_des_operation();
         break;
-        case 4://QUITTEZ();
+        case 4:QUITTEZ();
         break;
         default:
             printf("Choix non disponible!!");
