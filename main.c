@@ -24,6 +24,7 @@ struct
     unsigned int numero_tel;
     DATE date;
 }CLIENT, Mise_jour;
+CLIENT C;
 /*fin de la structure client*/
 
 
@@ -72,29 +73,6 @@ void GESTION_des_clients()
 /*fin de procedures gestion client*/
 
 /*procedure d'ajout d'un client*/
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-
-typedef struct
-{
-    unsigned int jour;
-    unsigned int mois;
-    unsigned int annee;
-}DATE;
-
-
-typedef struct
-{
-    unsigned int id_client;
-    char nom[50];
-    char prenom[50];
-    char profession[50];
-    unsigned int numero_tel;
-    DATE date;
-}CLIENT, Mise_jour;
-CLIENT C;
 
 
 
