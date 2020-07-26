@@ -11,12 +11,9 @@ typedef struct
     unsigned int annee;
 }DATE;
 /*fin de la structure date*/
-<<<<<<< HEAD
 
 
 
-=======
->>>>>>> 0612e0c634f99ede88416e52fa574268b3edf95b
 /*declaration de la structure clients*/
  typedef struct
 {
@@ -37,7 +34,7 @@ struct
    unsigned  int id_compte;
    unsigned  int id_client;
    unsigned  int solde;
-   char derniere_operation[50];
+     char derniere_operation;
 }comptes,check;
 /*fin de la structure compte*/
 
@@ -245,18 +242,7 @@ void afficher_liste_clients()
     while(fscanf(client,"%u;%s;%s;%s;%u;%u/%u/%u\n",&C.id_client,&C.nom,&C.prenom,&C.profession,&C.numero_tel,&C.date.jour, &C.date.mois, &C.date.annee) != EOF);
     fclose(client);
 }
-/*FIN DE PROCEDURE */
-
-
-
-
 /*FIN DE PROCEDURE AFFICHE CLIENTS*/
-
-/***
-
- supprimer recherche et affiche clients
-*/
-
 
 
 /*procedure gestion des compte*/
@@ -288,30 +274,20 @@ void GESTION_des_comptes()
 /*procedure nouveau compte*/
 void nouveau_compte()
 {
-    int choix;
-    FILE *compte = NULL;
-    compte = fopen("compte.txt","a+");
-    do
-    {
-        printf("Entrer le numero d'identification du compte:  ");
-        scanf("%d",&comptes.id_compte);
-        fflush(stdin);
-        printf("Entrer le numero d'identification du client:  ");
-        scanf("%d",&comptes.id_client);
-        fflush(stdin);
-        printf("Entrer solde:  ");
-        scanf("%d",&comptes.solde);
-        fflush(stdin);
-        printf("quelle est la derniere operation:  ");
-        scanf("%s",comptes.derniere_operation);
-        fflush(stdin);
-        printf("Voulez-vous continuer d'ajouter un nouveau compte?(1/0): ");
-        scanf("%d",&choix);
-        fflush(stdin);
-        fprintf(compte,"%d | %d %d | %s \n",comptes.id_compte,comptes.id_client,comptes.solde,comptes.derniere_operation);
+    FILE *compte;
 
-    }while(choix == 1);
-        fclose(compte);
+    compte=fopen("compte.txt","a");
+    printf("Entrer le numero d'identification du compte:  ");
+    scanf("%d",&comptes.id_compte);
+    printf("Entrer le numero d'identification du client:  ");
+    scanf("%d",&comptes.id_client);
+     printf("Entrer solde:  ");
+    scanf("%d",&comptes.solde);
+     printf("quelle est la derniere operation:  ");
+    scanf("%s",&comptes.derniere_operation);
+
+        fprintf(compte,"%d | %d %d | %s \n",comptes.id_compte,comptes.id_client,comptes.solde,comptes.derniere_operation);
+    fclose(compte);
 }
 /*fin de procedure nouveau compte*/
 
@@ -355,7 +331,7 @@ void affichage_compte()
     }
 /*fin de la procedure affichage des compte*/
 
-
+/*  */
 
 
 
