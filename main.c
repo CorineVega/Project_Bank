@@ -242,6 +242,7 @@ void afficher_liste_clients()
     while(fscanf(client,"%u;%s;%s;%s;%u;%u/%u/%u\n",&C.id_client,&C.nom,&C.prenom,&C.profession,&C.numero_tel,&C.date.jour, &C.date.mois, &C.date.annee) != EOF);
     fclose(client);
 }
+/*FIN DE PROCEDURE */
 
 
 
