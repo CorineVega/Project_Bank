@@ -3,7 +3,7 @@
 #include <string.h>
 
 
-/*declarations de la structure data*/
+/*declarations de la structure date*/
 typedef struct
 {
     unsigned int jour;
@@ -24,7 +24,6 @@ struct
     unsigned int numero_tel;
     DATE date;
 }CLIENT, Mise_jour;
-CLIENT C;
 /*fin de la structure client*/
 
 
@@ -83,6 +82,7 @@ void Ajout_client()
     client = fopen("Client.txt","a+");
     do
     {
+        CLIENT *C;
         printf("** AJOUT D'UN CLIENT ** \n\n");
         printf("Entrez l'identifiant du client: \n");
         scanf("%d",&C.id_client);
