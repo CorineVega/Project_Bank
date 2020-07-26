@@ -1,9 +1,10 @@
+/*directuves de preprocesseur*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 
-/*declarations de la structure data*/
+/*declarations de la structure date*/
 typedef struct
 {
     unsigned int jour;
@@ -11,6 +12,12 @@ typedef struct
     unsigned int annee;
 }DATE;
 /*fin de la structure date*/
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> 2c48f72a184d91379bdc5fce2385d9b8a5962f14
 /*declaration de la structure clients*/
  typedef struct
 {
@@ -31,7 +38,7 @@ struct
    unsigned  int id_compte;
    unsigned  int id_client;
    unsigned  int solde;
-   char derniere_operation[50];
+     char derniere_operation;
 }comptes,check;
 /*fin de la structure compte*/
 
@@ -307,18 +314,7 @@ void afficher_liste_clients()
     while(fscanf(client,"%u;%s;%s;%s;%u;%u/%u/%u\n",&C.id_client,&C.nom,&C.prenom,&C.profession,&C.numero_tel,&C.date.jour, &C.date.mois, &C.date.annee) != EOF);
     fclose(client);
 }
-/*FIN DE PROCEDURE */
-
-
-
-
 /*FIN DE PROCEDURE AFFICHE CLIENTS*/
-
-/***
-
- supprimer recherche et affiche clients
-*/
-
 
 
 /*procedure gestion des compte*/
@@ -350,6 +346,9 @@ void GESTION_des_comptes()
 /*procedure nouveau compte*/
 void nouveau_compte()
 {
+<<<<<<< HEAD
+    FILE *compte;
+=======
     int choix;
     FILE *compte = NULL;
     compte = fopen("compte.txt","a+");
@@ -371,9 +370,20 @@ void nouveau_compte()
         scanf("%d",&choix);
         fflush(stdin);
         fprintf(compte,"%d | %d | %d | %s \n",comptes.id_compte,comptes.id_client,comptes.solde,comptes.derniere_operation);
+>>>>>>> 1d6a1fb34ea252b7a02e4991285bf032140de6ee
 
-    }while(choix == 1);
-        fclose(compte);
+    compte=fopen("compte.txt","a");
+    printf("Entrer le numero d'identification du compte:  ");
+    scanf("%d",&comptes.id_compte);
+    printf("Entrer le numero d'identification du client:  ");
+    scanf("%d",&comptes.id_client);
+     printf("Entrer solde:  ");
+    scanf("%d",&comptes.solde);
+     printf("quelle est la derniere operation:  ");
+    scanf("%s",&comptes.derniere_operation);
+
+        fprintf(compte,"%d | %d %d | %s \n",comptes.id_compte,comptes.id_client,comptes.solde,comptes.derniere_operation);
+    fclose(compte);
 }
 /*fin de procedure nouveau compte*/
 
@@ -426,16 +436,60 @@ void affichage_compte()
     }
 /*fin de la procedure affichage des compte*/
 
+/*  GESTION DES OPERATION*/
+
+void GESTION_des_operation()
+{
+
+
+ int choix=0;
+     printf("\n\n\t\t\t            KALATA BANK");
+    printf("\n\n\n\t\t\t\xB2\xB2\xB2\xB2\xB2\xB2\xB2  GESTION DES OPERATION \xB2\xB2\xB2\xB2\xB2\xB2\xB2");
+    printf("\n\n\t\t1.RETRAIT \n\t\t2.VIREMENT \n\t\t3.MENU GENERAL\n\n\t ENTREZ LE NUMERO CORRESPONDANT A VOTRE CHOIX: ");
+     scanf("%d",&choix);
+     switch(choix)
+     {
+            case 1:retrait();
+            break;
+            case 2:virement();
+            break;
+            case 3:main();
+            break;
+            default:
+                printf("entrez un choix valide svp...");
+                break;
+
+     }
 
 
 
 
 
+}
+
+/*FIN DE FONCTION*/
+
+/*procedure retrait*/
+void retrait()
+{
+
+    printf("hello");
+
+}
+/*fin de procedure retrait*/
+
+/*procedure virement*/
+
+void virement()
+{
+    printf("hi");
+
+}
+/*fin de procedure virement*/
 
 
 
-
-
+/*fonction principal main*/
 int main()
 {    system("cls");
      int choix;
@@ -463,4 +517,4 @@ int main()
     }
 return 0;
 }
-
+/*fin de main*/
