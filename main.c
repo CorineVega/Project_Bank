@@ -12,12 +12,6 @@ typedef struct
     unsigned int annee;
 }DATE;
 /*fin de la structure date*/
-<<<<<<< HEAD
-=======
-
-
-
->>>>>>> 2c48f72a184d91379bdc5fce2385d9b8a5962f14
 /*declaration de la structure clients*/
  typedef struct
 {
@@ -346,11 +340,8 @@ void GESTION_des_comptes()
 /*procedure nouveau compte*/
 void nouveau_compte()
 {
-<<<<<<< HEAD
-    FILE *compte;
-=======
-    int choix;
     FILE *compte = NULL;
+    int choix = 0;
     compte = fopen("compte.txt","a+");
     do
     {
@@ -370,19 +361,7 @@ void nouveau_compte()
         scanf("%d",&choix);
         fflush(stdin);
         fprintf(compte,"%d | %d | %d | %s \n",comptes.id_compte,comptes.id_client,comptes.solde,comptes.derniere_operation);
->>>>>>> 1d6a1fb34ea252b7a02e4991285bf032140de6ee
-
-    compte=fopen("compte.txt","a");
-    printf("Entrer le numero d'identification du compte:  ");
-    scanf("%d",&comptes.id_compte);
-    printf("Entrer le numero d'identification du client:  ");
-    scanf("%d",&comptes.id_client);
-     printf("Entrer solde:  ");
-    scanf("%d",&comptes.solde);
-     printf("quelle est la derniere operation:  ");
-    scanf("%s",&comptes.derniere_operation);
-
-        fprintf(compte,"%d | %d %d | %s \n",comptes.id_compte,comptes.id_client,comptes.solde,comptes.derniere_operation);
+    }while(choix == 1);
     fclose(compte);
 }
 /*fin de procedure nouveau compte*/
