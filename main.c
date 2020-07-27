@@ -164,7 +164,7 @@ void lire(char *tab)
 
 
 
-void securite_id(unsigned int *id_client)
+void securite_id( int * id_client)
 {
     char id_client_char[15] = "";
     do
@@ -172,7 +172,7 @@ void securite_id(unsigned int *id_client)
         lire(id_client_char);
         if(!valid(id_client_char ,1))
         {
-            warning("\n\n\tNumero d'ID Invalide(ne doit contenir que 9 chiffres de 0 a 9) !\n\n");
+            printf("\n\n\tNumero d'ID Invalide(ne doit contenir que 9 chiffres de 0 a 9) !\n\n");
             printf("\tEntrer le Numero d'ID > ");
         }
     }while(!valid(id_client_char ,1));
@@ -193,7 +193,7 @@ void Ajout_client()
         printf("\n\n\n\t\t\t\xB2\xB2\xB2\xB2\xB2\xB2\xB2 ** AJOUT D'UN CLIENT **\xB2\xB2\xB2\xB2\xB2\xB2\xB2\n\n");
         ENTRER:
         printf("Entrez l'identifiant du client: \n");
-<<<<<<< HEAD
+
         scanf("%d",&check.id_client);
         fflush(stdin);
         if(check.id_client == C.id_client)
@@ -205,10 +205,9 @@ void Ajout_client()
         } else
         {
         C.id_client=check.id_client;
-=======
+
         securite_id(&C.id_client);
         fflush(stdin);
->>>>>>> 750a0ec745ed4a636d9a7aed213361c1e47aface
         printf("Entrez le nom du client: \n");
         scanf("%s",C.nom);
         fflush(stdin);
@@ -332,13 +331,9 @@ void supression_client()
     {
         case 1:
             printf("Veuillez entrer l'id du client que vous voulez suprimer: \n");
-<<<<<<< HEAD
+
             securite_id(&c_sup.id_client);
-            while(fscanf(client,"%u",C.id_client) == 1)
-=======
-            scanf("%d",&c_sup.id_client);
-            while(fscanf(client,"%d") == 1)
->>>>>>> 11449e868dbe9ab977602b624d4aa1ffbd382d85
+            while(fscanf(client,"%d",C.id_client) == 1)
         {
             fgetc(client);
             fscanf(client,"%[^;]s",C.nom);
@@ -379,11 +374,9 @@ void supression_client()
         case 2:
             printf("Veuillez entrer le nom du client que vous voulez supprimer: ");
             scanf("%s",c_sup.nom);
-<<<<<<< HEAD
-            while(fscanf(client,"%u",C.id_client) == 1)
-=======
-            while(fscanf(client,"%d") == 1)
->>>>>>> 11449e868dbe9ab977602b624d4aa1ffbd382d85
+
+            while(fscanf(client,"%d",&C.id_client) == 1)
+
         {
             fgetc(client);
             fscanf(client,"%[^;]s",C.nom);
@@ -435,13 +428,10 @@ void recherche_client()
     client = fopen("client.txt","r+");
     printf("** RECHERCHE D'UN CLIENT** \n");
     printf("Enter l'id du client que vous chercher: ");
-<<<<<<< HEAD
+
     securite_id(&C_rech.id_client);
-    while(fscanf(client,"%u;\t%s;\t%s;\t%s;\t%u;\t%u/%u/%u\n",&C.id_client,&C.nom,&C.prenom,&C.profession,&C.numero_tel,&C.date.jour, &C.date.mois, &C.date.annee) != EOF)
-=======
-    scanf("%d",&C_rech.id_client);
     while(fscanf(client,"%u;\t%s;\t%s;\t%s;\t%u;\t%u/%u/%u\n",&C.id_client,C.nom,C.prenom,C.profession,&C.numero_tel,&C.date.jour, &C.date.mois, &C.date.annee) != EOF)
->>>>>>> 11449e868dbe9ab977602b624d4aa1ffbd382d85
+
     {
         if (C.id_client == C_rech.id_client)
             printf("Le candidat que vous chercher a les informations suivantes: \n NOM: %s \n PRENOM: %s PROFESSION: %s NUM_TEL: %u DATE: %u/%u/%u \n", C.nom, C.prenom, C.profession, C.numero_tel, C.date.jour, C.date.mois, C.date.annee);
