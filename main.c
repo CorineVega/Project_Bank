@@ -105,11 +105,22 @@ void Ajout_client()
     client = fopen("Client.txt","a+");
     do
     {
+
         system("cls");
         printf("\n\n\n\t\t\t\xB2\xB2\xB2\xB2\xB2\xB2\xB2 ** AJOUT D'UN CLIENT **\xB2\xB2\xB2\xB2\xB2\xB2\xB2\n\n");
+        ENTRER:
         printf("Entrez l'identifiant du client: \n");
-        scanf("%d",&C.id_client);
+        scanf("%d",&check.id_client);
         fflush(stdin);
+        if(check.id_client == C.id_client)
+        {
+            printf("UN CLIENTS A DEJA CET IDENTIFIANT\n ");
+            printf("veuillez entrer un autre svp\n");
+            printf("Entrez l'identifiant du client: \n");
+            goto ENTRER;
+        } else
+        {
+        C.id_client=check.id_client;
         printf("Entrez le nom du client: \n");
         scanf("%s",C.nom);
         fflush(stdin);
@@ -127,10 +138,11 @@ void Ajout_client()
         fprintf(client,"%u;%s;%s;%s;%u;%u/%u/%u\n",C.id_client,C.nom,C.prenom,C.profession, C.numero_tel,C.date.jour, C.date.mois, C.date.annee);
         printf("Voulez-vous continuer d'ajouter les clients? (1/0) \n");
         scanf("%d",&choix);
-
+        }
         if (choix ==0)
             system("cls");
             GESTION_des_clients();
+
         }while(choix == 1);
 
     fclose(client);
@@ -344,7 +356,7 @@ void afficher_liste_clients()
     client = fopen("Client.txt","r");
     do{
         printf("ID CLIENTS | NOM | PRENOM | PROFESSION |NUMERO DE TEL /jj/mm/aaaa\n");
-        printf("%u;|%s;|%s;|%s;|%u;| %u/%u/%u \n",C.id_client,C.nom,C.prenom,C.profession, C.numero_tel,C.date.jour, C.date.mois, C.date.annee);
+        printf("%u;|%s;|%s;|%s;|%u;| %u/%u/%u \n\n",C.id_client,C.nom,C.prenom,C.profession, C.numero_tel,C.date.jour, C.date.mois, C.date.annee);
     }
     while(fscanf(client,"%u;%s;%s;%s;%u;%u/%u/%u\n",&C.id_client,C.nom,C.prenom,C.profession,&C.numero_tel,&C.date.jour, &C.date.mois, &C.date.annee) != EOF);
     fclose(client);
