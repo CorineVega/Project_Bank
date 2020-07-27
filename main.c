@@ -34,7 +34,7 @@ struct
    unsigned  int id_client;
    unsigned  int solde;
      char derniere_operation;
-}comptes,check;
+}comptes,check,recherche_compte;
 /*fin de la structure compte*/
 
 
@@ -47,7 +47,7 @@ void GESTION_des_clients()
     int choix=0;
     printf("\n\n\t\t\t            KALATA BANK");
     printf("\n\n\n\t\t\t\xB2\xB2\xB2\xB2\xB2\xB2\xB2 BIENVENUE MENU GESTION DES CLIENTS \xB2\xB2\xB2\xB2\xB2\xB2\xB2");
-    printf("\n\n\t\t1.AJOUTER UN CLIENT \n\t\t2.MODIFIER LES INFPORMATION D'UN CLIENTS \n\t\t3.SUPPRESION D'UN CLIENTS\n\t\t4.RECHERCHE D'UN CLIENTS\n\t\t5.AFFICHER LA LISTE DES CLIENTS\n\t\t6.QUITTEZ\n\n\t ENTREZ LE NUMERO CORRESPONDANT A VOTRE CHOIX: ");
+    printf("\n\n\t\t1.AJOUTER UN CLIENT \n\t\t2.MODIFIER LES INFPORMATION D'UN CLIENTS \n\t\t3.SUPPRESION D'UN CLIENTS\n\t\t4.RECHERCHE D'UN CLIENTS\n\t\t5.AFFICHER LA LISTE DES CLIENTS\n\t\t6.MENU GENERAL\n\n\t ENTREZ LE NUMERO CORRESPONDANT A VOTRE CHOIX: ");
     scanf("%d",&choix);
         switch(choix)
         {
@@ -184,6 +184,7 @@ void Modification_client()
         fclose(fich_modifier);
         remove("client.txt");
         rename("fich_modifier.txt","client.txt");
+        GESTION_des_clients();
 
 }
 /*FIN DE PROCEDURE MODIFIER CLIENTS*/
@@ -229,15 +230,20 @@ void supression_client()
         }
         fclose(client);
         fclose(fich_sup);
+        choice:
         printf("voulez-vous confirmer la suppression?(1/0): ");
             scanf("%d",&choix);
             if(choix == 1)
             {
+                printf("\n\n");
+                printf("suppression effectuer avec succes");
                 remove(client);
                 rename("fich_supp.txt","client.txt");
+                GESTION_des_clients();
             }
             else
                 printf("Vous n'avez pas supprimer le client!!");
+                GESTION_des_clients();
         break;
         case 2:
             printf("Veuillez entrer le nom du client que vous voulez supprimer: ");
@@ -271,12 +277,15 @@ void supression_client()
             {
                 remove(client);
                 rename("fich_supp.txt","client.txt");
+                GESTION_des_clients();
             }
             else
                 printf("Vous n'avez pas supprimer le client!!");
+                 GESTION_des_clients();
         break;
         default:
                 printf("Choix non disponible!!");
+                goto choice;
 
     }
 
@@ -330,7 +339,7 @@ void GESTION_des_comptes()
      {
             case 1:nouveau_compte();
             break;
-            case 2://consultation_des_compte();
+            case 2:consultation();
             break;
             case 3:fermeture_compte();
             break;
@@ -374,6 +383,29 @@ void nouveau_compte()
 }
 
 /*fin de procedure nouveau compte*/
+
+/*PROCEDURE CONSULTATION COMPTE(recherche)*/
+
+ void consultation()
+    {
+FILE *compte = NULL;
+        compte = fopen("compte.txt","r");
+        printf("entrer l'id du compte a afficher :");
+        scanf("%d",&recherche_compte.id_compte);
+        printf("%d",recherche_compte.id_compte);
+       while(fscanf(compte,"%d | %d | %d | %s \n",comptes.id_compte,comptes.id_client,comptes.solde,comptes.derniere_operation)!=EOF)
+        {
+            if(comptes.id_compte==recherche_compte.id_compte)
+            {
+                system("cls");
+                printf("%d | %d | %d | %s \n",comptes.id_compte,comptes.id_client,comptes.solde,comptes.derniere_operation);
+            }
+
+
+        }
+        fclose(compte);
+    }
+/*fin de procedure*/
 
 
 /*procedure fermeture de compte*/
