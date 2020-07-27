@@ -3,20 +3,39 @@
 #include <stdlib.h>
 #include <string.h>
 
+/*debut de prototypes*/
+void affichage_compte();
+void afficher_liste_clients();
+void Ajout_client();
+void consultation();
+void fermeture_compte();
+void GESTION_des_clients();
+void GESTION_des_comptes();
+void GESTION_des_operation();
+void Modification_client();
+void nouveau_compte();
+void QUITTEZ();
+void recherche_client();
+void retrait();
+void supression_client();
+void virement();
+void fordelay(int j);
+int main();
+/*fin des prototypes*/
 
 /*declarations de la structure date*/
 typedef struct
 {
-    unsigned int jour;
-    unsigned int mois;
-    unsigned int annee;
+     int jour;
+     int mois;
+     int annee;
 }DATE;
 /*fin de la structure date*/
 
 /*declaration de la structure clients*/
  typedef struct
 {
-    unsigned int id_client;
+     int id_client;
     char nom[50];
     char prenom[50];
     char profession[50];
@@ -30,10 +49,10 @@ CLIENT C;
 /*declaration de la structure compte*/
 struct
 {
-   unsigned  int id_compte;
-   unsigned  int id_client;
-   unsigned  int solde;
-     char derniere_operation;
+     int id_compte;
+     int id_client;
+     int solde;
+     char derniere_operation[10];
 }comptes,check,recherche_compte;
 /*fin de la structure compte*/
 
@@ -51,17 +70,23 @@ void GESTION_des_clients()
     scanf("%d",&choix);
         switch(choix)
         {
-            case 1:Ajout_client();
+            case 1:decompte();
+                Ajout_client();
             break;
-            case 2:Modification_client();
+            case 2:decompte();
+                Modification_client();
             break;
-            case 3:supression_client();
+            case 3:decompte();
+                supression_client();
             break;
-            case 4:recherche_client();
+            case 4:decompte();
+            recherche_client();
             break;
-            case 5:afficher_liste_clients();
+            case 5:decompte();
+            afficher_liste_clients();
             break;
-            case 6:main();
+            case 6:decompte();
+            main();
             break;
             default:
                 printf("Choix non disponible!!");
@@ -118,14 +143,14 @@ void Modification_client()
     Mise_jour Cli_modif;
     FILE *client = NULL;
     FILE *fich_modifier;
-    client = fopen("client.txt","r+");
-    fich_modifier = fopen("fich_modifier.txt","w+");
+    client = fopen("client.txt","r");
+    fich_modifier = fopen("fich_modifier.txt","w");
     printf("** MODIFICATION DES DONNEES DES CLIENTS **: \n\n");
     printf("Entrez l'id du client dont vous voulez faire des modifications: ");
     scanf("%d",&Cli_modif.id_client);
     while(fscanf(client,"%d",&C.id_client) == 1)
     {
-        int test = 0;
+
         int choice = 0;
         fgetc(client);
         fscanf(client,"%[^;]s",C.nom);
@@ -145,7 +170,7 @@ void Modification_client()
         {
            do
             {
-                test = 1;
+
                 printf("vous allez modifier les donnees de: %s \n",C.nom);
                 printf("Ses anciennes informations etaient: \n");
                 printf("ID_client: %u \n NOM: %s \n PRENOM: %s \n PROFESSION: %s \n NUM_TEL: %u \n DATE_D'AJOUT: %u/%u/%u \n",C.id_client,C.nom,C.prenom,C.profession, C.numero_tel,C.date.jour, C.date.mois, C.date.annee);
@@ -207,7 +232,7 @@ void supression_client()
         case 1:
             printf("Veuillez entrer l'id du client que vous voulez suprimer: \n");
             scanf("%d",&c_sup.id_client);
-            while(fscanf(client,"%u") == 1)
+            while(fscanf(client,"%d") == 1)
         {
             fgetc(client);
             fscanf(client,"%[^;]s",C.nom);
@@ -225,7 +250,7 @@ void supression_client()
             fscanf(client,"%d",&C.date.annee);
             if (C.id_client != c_sup.id_client)
             {
-                fprintf(fich_sup,"%u;%s;%s;%s;%u;%u/%u/%u\n",&c_sup.id_client,&c_sup.nom,&c_sup.prenom,&c_sup.profession,&c_sup.numero_tel,&c_sup.date.jour, &c_sup.date.mois, &c_sup.date.annee);
+                fprintf(fich_sup,"%d;%s;%s;%s;%d;%d/%d/%d\n",c_sup.id_client,c_sup.nom,c_sup.prenom,c_sup.profession,c_sup.numero_tel,c_sup.date.jour, c_sup.date.mois, c_sup.date.annee);
             }
         }
         fclose(client);
@@ -237,7 +262,7 @@ void supression_client()
             {
                 printf("\n\n");
                 printf("suppression effectuer avec succes");
-                remove(client);
+                remove("client.txt");
                 rename("fich_supp.txt","client.txt");
                 GESTION_des_clients();
             }
@@ -248,7 +273,7 @@ void supression_client()
         case 2:
             printf("Veuillez entrer le nom du client que vous voulez supprimer: ");
             scanf("%s",c_sup.nom);
-            while(fscanf(client,"%u") == 1)
+            while(fscanf(client,"%d") == 1)
         {
             fgetc(client);
             fscanf(client,"%[^;]s",C.nom);
@@ -266,7 +291,7 @@ void supression_client()
             fscanf(client,"%d",&C.date.annee);
             if(strcmp(C.nom, c_sup.nom))
             {
-                fprintf(fich_sup,"%u;%s;%s;%s;%u;%u/%u/%u\n",&c_sup.id_client,&c_sup.nom,&c_sup.prenom,&c_sup.profession,&c_sup.numero_tel,&c_sup.date.jour, &c_sup.date.mois, &c_sup.date.annee);
+                fprintf(fich_sup,"%u;%s;%s;%s;%u;%u/%u/%u\n",c_sup.id_client,c_sup.nom,c_sup.prenom,c_sup.profession,c_sup.numero_tel,c_sup.date.jour,c_sup.date.mois,c_sup.date.annee);
             }
         }
             fclose(client);
@@ -275,7 +300,7 @@ void supression_client()
             scanf("%d",&choix);
             if(choix == 1)
             {
-                remove(client);
+                remove("client.txt");
                 rename("fich_supp.txt","client.txt");
                 GESTION_des_clients();
             }
@@ -301,7 +326,7 @@ void recherche_client()
     printf("** RECHERCHE D'UN CLIENT** \n");
     printf("Enter l'id du client que vous chercher: ");
     scanf("%d",&C_rech.id_client);
-    while(fscanf(client,"%u;\t%s;\t%s;\t%s;\t%u;\t%u/%u/%u\n",&C.id_client,&C.nom,&C.prenom,&C.profession,&C.numero_tel,&C.date.jour, &C.date.mois, &C.date.annee) != EOF)
+    while(fscanf(client,"%u;\t%s;\t%s;\t%s;\t%u;\t%u/%u/%u\n",&C.id_client,C.nom,C.prenom,C.profession,&C.numero_tel,&C.date.jour, &C.date.mois, &C.date.annee) != EOF)
     {
         if (C.id_client == C_rech.id_client)
             printf("Le candidat que vous chercher a les informations suivantes: \n NOM: %s \n PRENOM: %s PROFESSION: %s NUM_TEL: %u DATE: %u/%u/%u \n", C.nom, C.prenom, C.profession, C.numero_tel, C.date.jour, C.date.mois, C.date.annee);
@@ -318,9 +343,9 @@ void afficher_liste_clients()
     client = fopen("Client.txt","r");
     do{
         printf("ID CLIENTS | NOM | PRENOM | PROFESSION |NUMERO DE TEL /jj/mm/aaaa\n");
-        printf("%u;%s;%s;%s;%u;%u/%u/%u\n",C.id_client,C.nom,C.prenom,C.profession, C.numero_tel,C.date.jour, C.date.mois, C.date.annee);
+        printf("%u;|%s;|%s;|%s;|%u;| %u/%u/%u \n",C.id_client,C.nom,C.prenom,C.profession, C.numero_tel,C.date.jour, C.date.mois, C.date.annee);
     }
-    while(fscanf(client,"%u;%s;%s;%s;%u;%u/%u/%u\n",&C.id_client,&C.nom,&C.prenom,&C.profession,&C.numero_tel,&C.date.jour, &C.date.mois, &C.date.annee) != EOF);
+    while(fscanf(client,"%u;%s;%s;%s;%u;%u/%u/%u\n",&C.id_client,C.nom,C.prenom,C.profession,&C.numero_tel,&C.date.jour, &C.date.mois, &C.date.annee) != EOF);
     fclose(client);
     GESTION_des_clients();
 }
@@ -337,15 +362,20 @@ void GESTION_des_comptes()
      scanf("%d",&choix);
      switch(choix)
      {
-            case 1:nouveau_compte();
+            case 1:decompte();
+            nouveau_compte();
             break;
-            case 2:consultation();
+            case 2:decompte();
+            consultation();
             break;
-            case 3:fermeture_compte();
+            case 3:decompte();
+            fermeture_compte();
             break;
-            case 4:affichage_compte();
+            case 4:decompte();
+            affichage_compte();
             break;
-            case 5:main();
+            case 5:decompte();
+            main();
             break;
 
      }
@@ -374,12 +404,17 @@ void nouveau_compte()
         printf("quelle est la derniere operation:  ");
         scanf("%s",comptes.derniere_operation);
         fflush(stdin);
+        fprintf(compte,"%d; | %d; | %d; | %s; |\n",comptes.id_compte,comptes.id_client,comptes.solde,comptes.derniere_operation);
         printf("Voulez-vous continuer d'ajouter un nouveau compte?(1/0): ");
         scanf("%d",&choix);
         fflush(stdin);
-        fprintf(compte,"%d | %d | %d | %s \n",comptes.id_compte,comptes.id_client,comptes.solde,comptes.derniere_operation);
+
     }while(choix == 1);
-    fclose(compte);
+        if(choix==0){
+            system("cls");
+            GESTION_des_comptes();
+            }
+                fclose(compte);
 }
 
 /*fin de procedure nouveau compte*/
@@ -388,21 +423,20 @@ void nouveau_compte()
 
  void consultation()
     {
-FILE *compte = NULL;
+        FILE *compte = NULL;
         compte = fopen("compte.txt","r");
         printf("entrer l'id du compte a afficher :");
         scanf("%d",&recherche_compte.id_compte);
-        printf("%d",recherche_compte.id_compte);
-       while(fscanf(compte,"%d | %d | %d | %s \n",comptes.id_compte,comptes.id_client,comptes.solde,comptes.derniere_operation)!=EOF)
+     while (fscanf(compte,"%d; | %d; | %d; | %s; |\n",&comptes.id_compte,&comptes.id_client,&comptes.solde,comptes.derniere_operation)!=EOF);
         {
-            if(comptes.id_compte==recherche_compte.id_compte)
+            if(recherche_compte.id_compte==comptes.id_compte)
             {
-                system("cls");
-                printf("%d | %d | %d | %s \n",comptes.id_compte,comptes.id_client,comptes.solde,comptes.derniere_operation);
+                printf("| %d; | %d; | %d; | %s; |\n",comptes.id_compte,comptes.id_client,comptes.solde,comptes.derniere_operation);
             }
 
 
         }
+
         fclose(compte);
     }
 /*fin de procedure*/
@@ -413,25 +447,17 @@ FILE *compte = NULL;
 void fermeture_compte()
 {
     FILE *compte = NULL;
-    compte = fopen("compte.txt","r+");
-    FILE *supp_compte;
-    supp_compte = fopen("supp_compte.txt","w+");
-    printf("SUPPRESSION D'UN COMPTE: ");
+    compte = fopen("compte.txt","r");
+    FILE *supp_compte=NULL;
+    supp_compte = fopen("supp_compte.txt","w");
+    printf("\t\t** SUPRESSION DE CLIENT **\n\n");
     printf("entrer le  numero d'identification du compte que vous voulez supprimer: ");
     scanf("%d",&check.id_compte);
-     while(fscanf(compte,"%d") == 1);
+     while (fscanf(compte,"%d; | %d; | %d; | %s; |\n",&comptes.id_compte,&comptes.id_client,&comptes.solde,comptes.derniere_operation)!=EOF);
      {
-         fscanf(compte, "%[^|]d",comptes.id_compte);
-         fgetc(compte);
-         fscanf(compte, "%[^|]d",comptes.id_client);
-         fgetc(compte);
-         fscanf(compte, "%[^|]d",comptes.solde);
-         fgetc(compte);
-         fscanf(compte, "%[^|]s",comptes.derniere_operation);
-         fgetc(compte);
-         if(check.id_compte != comptes.id_compte)
+         if(comptes.id_compte  != check.id_compte )
          {
-            fprintf(supp_compte,"%d | %d | %d | %s",comptes.id_compte,comptes.id_client,comptes.solde,comptes.derniere_operation);
+            fprintf(supp_compte,"%d; | %d; | %d; | %s; |\n",comptes.id_compte,comptes.id_client,comptes.solde,comptes.derniere_operation);
          }
      }
      fclose(compte);
@@ -445,16 +471,21 @@ void fermeture_compte()
 /*procedure affichage des comptes*/
 void affichage_compte()
     {
-
-
+        int test =0;
        FILE *compte = fopen("compte.txt","r");
        printf("id compte | id client| solde| derniere operation" );
-     while (fscanf(compte,"%s | %s | %d | %s",comptes.id_compte,comptes.id_client,comptes.solde,comptes.derniere_operation)!=EOF);
+     while (fscanf(compte,"%d | %d | %d | %s",&comptes.id_compte,&comptes.id_client,&comptes.solde,comptes.derniere_operation)!=EOF);
        {
-
-        printf("%s | %s | %d | %s",comptes.id_compte,comptes.id_client,comptes.solde,comptes.derniere_operation);
+        printf("%d | %d | %d | %s",comptes.id_compte,comptes.id_client,comptes.solde,comptes.derniere_operation);
+        test ++;
        }
         fclose(compte);
+        if (test==0)
+        {
+            system("cls");
+            printf("\nAUCUN COMPTE\n");
+        }
+
     }
 /*fin de la procedure affichage des compte*/
 
@@ -471,11 +502,14 @@ void GESTION_des_operation()
      scanf("%d",&choix);
      switch(choix)
      {
-            case 1:retrait();
+            case 1:decompte();
+            retrait();
             break;
-            case 2:virement();
+            case 2:decompte();
+            virement();
             break;
-            case 3:main();
+            case 3:decompte();
+            main();
             break;
             default:
                 printf("entrez un choix valide svp...");
@@ -490,22 +524,22 @@ void retrait()
 {
  FILE *compte = NULL;
     compte =fopen("compte.txt","a+");
-    unsigned int idcompte_debit;
+    unsigned int idcompte_debit=0;
     printf("ENTRER L'ID DU COMPTE A DEBITER: ");
-    scanf("%u",idcompte_debit);
+    scanf("%d",&idcompte_debit);
     unsigned int somme_debit=0;
     do{
         if(idcompte_debit == comptes.id_compte)
         {
             printf("ENTRER LE MONTANT A DEBITER:FCFA ");
-            scanf("%u",&somme_debit);
+            scanf("%d",&somme_debit);
             comptes.solde-=somme_debit;
             fprintf(compte,"%d | %d | %d | %s \n",comptes.id_compte,comptes.id_client,comptes.solde,comptes.derniere_operation);
             printf("\n\nDEBIT EFFECTUER AVEC SUCCESS!!!!");
 
         }
     }
-    while (fscanf(compte,"%s | %s | %d | %s",comptes.id_compte,comptes.id_client,comptes.solde,comptes.derniere_operation)!=EOF);
+    while (fscanf(compte,"%d | %d | %d | %s",&comptes.id_compte,&comptes.id_client,&comptes.solde,comptes.derniere_operation)!=EOF);
         fclose(compte);
 
 }
@@ -517,22 +551,22 @@ void virement()
 {
     FILE *compte = NULL;
     compte =fopen("compte.txt","a+");
-    unsigned int idcompte_credit;
+    unsigned int idcompte_credit=0;
     printf("ENTRER L'ID DU COMPTE A CREDITER: ");
-    scanf("%u",idcompte_credit);
+    scanf("%d",&idcompte_credit);
     unsigned int somme_debit=0;
     do{
         if(idcompte_credit == comptes.id_compte)
         {
             printf("ENTRER LE MONTANT A VIRER:FCFA ");
-            scanf("%u",&somme_debit);
+            scanf("%d",&somme_debit);
             comptes.solde+=somme_debit;
             fprintf(compte,"%d | %d | %d | %s \n",comptes.id_compte,comptes.id_client,comptes.solde,comptes.derniere_operation);
             printf("\n\nVIREMENT EFFECTUER AVEC SUCCESS!!!!");
 
         }
     }
-    while (fscanf(compte,"%s | %s | %d | %s",comptes.id_compte,comptes.id_client,comptes.solde,comptes.derniere_operation)!=EOF);
+    while (fscanf(compte,"%d | %d | %d | %s",&comptes.id_compte,&comptes.id_client,&comptes.solde,comptes.derniere_operation)!=EOF);
         fclose(compte);
 
 }
@@ -549,10 +583,27 @@ void QUITTEZ()
 
 /*fin de fonction*/
 
+
+void fordelay(int j)
+{   int i,k;
+    for(i=0;i<j;i++)
+         k=i;
+}
+void decompte()
+{
+    int i;
+    printf("\nChargement");
+                for(i=0;i<=6;i++)
+                    {
+                        fordelay(100000000);
+                        printf(".");
+                    }
+                    system("cls");
+}
 /*fonction principal main*/
 int main()
 {    system("cls");
-     int choix;
+     int choix,i;
     system("color 9");
     printf("\n\n\t\t\t            KALATA BANK");
     printf("\n\n\n\t\t\t\xB2\xB2\xB2\xB2\xB2\xB2\xB2 BIENVENUE MENU PRINCIPAL\xB2\xB2\xB2\xB2\xB2\xB2\xB2");
@@ -562,11 +613,15 @@ int main()
     system("cls");
     switch(choix)
     {
-        case 1:GESTION_des_clients();
+        case 1:decompte();
+                GESTION_des_clients();
         break;
-        case 2:GESTION_des_comptes();
+        case 2:decompte();
+            GESTION_des_comptes();
         break;
-        case 3:GESTION_des_operation();
+        case 3:
+            decompte();
+            GESTION_des_operation();
         break;
         case 4:QUITTEZ();
         break;
