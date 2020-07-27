@@ -20,6 +20,7 @@ void retrait();
 void supression_client();
 void virement();
 void fordelay(int j);
+void decompte();
 int main();
 /*fin des prototypes*/
 
@@ -591,9 +592,9 @@ void fordelay(int j)
 }
 void decompte()
 {
-    int i;
+
     printf("\nChargement");
-                for(i=0;i<=6;i++)
+                for(int i=0;i<=6;i++)
                     {
                         fordelay(100000000);
                         printf(".");
