@@ -101,6 +101,7 @@ void GESTION_des_clients()
 void Ajout_client()
 {
     int choix = 1;
+    int id=0;
     FILE *client = NULL;
     client = fopen("Client.txt","a");
     do
@@ -110,9 +111,9 @@ void Ajout_client()
         printf("\n\n\n\t\t\t\xB2\xB2\xB2\xB2\xB2\xB2\xB2 ** AJOUT D'UN CLIENT **\xB2\xB2\xB2\xB2\xB2\xB2\xB2\n\n");
         ENTRER:
         printf("Entrez l'identifiant du client: \n");
-        scanf("%d",&check.id_client);
+        scanf("%d",&id);
         fflush(stdin);
-        if(check.id_client == C.id_client)
+        if(id == C.id_client)
         {
             printf("UN CLIENTS A DEJA CET IDENTIFIANT\n ");
             printf("veuillez entrer un autre svp\n");
@@ -120,7 +121,7 @@ void Ajout_client()
             goto ENTRER;
         } else
         {
-        C.id_client=check.id_client;
+        C.id_client=id;
         fflush(stdin);
         printf("Entrez le nom du client: \n");
         scanf("%s",C.nom);
