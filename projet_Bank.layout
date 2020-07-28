@@ -7,9 +7,23 @@
 			<Cursor1 position="5467" topLine="194" />
 		</Cursor>
 	</File>
+<<<<<<< HEAD
 	<File name="definitions_structures_fonctions.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="0" topLine="0" />
+=======
+	<File name="main.c" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="2" zoom_2="0">
+		<Cursor>
+<<<<<<< HEAD
+			<Cursor1 position="7096" topLine="242" />
+=======
+<<<<<<< HEAD
+			<Cursor1 position="8130" topLine="273" />
+=======
+			<Cursor1 position="16721" topLine="499" />
+>>>>>>> 67291dcd880edb8d539f88923d75fea4d777b5ca
+>>>>>>> 8d671a993fb91f96fd508bad8f08b2f9894a7a24
+>>>>>>> 318fe39eab3ca52323186c9a943c8cb981bbd529
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>
