@@ -93,6 +93,7 @@ void GESTION_des_clients()
             break;
             default:
                 printf("Choix non disponible!!");
+                GESTION_des_clients();
             break;
 
         }
@@ -128,7 +129,7 @@ void Ajout_client()
     client = fopen("Client.txt","a+");
     system("cls");
     printf("\n\n\n\t\t\t\xB2\xB2\xB2\xB2\xB2\xB2\xB2 ** AJOUT D'UN CLIENT **\xB2\xB2\xB2\xB2\xB2\xB2\xB2\n\n");
-
+    system("cls");
     printf("Entrez l'identifiant du client: \n");
     scanf("%d",&id);
     while(petite_recherche(id) == 1)
@@ -184,6 +185,7 @@ void Modification_client()
     {
 
         int choice = 0;
+        int choix = 0;
         fgetc(client);
         fscanf(client,"%[^;]s",C.nom);
         fgetc(client);
@@ -234,9 +236,14 @@ void Modification_client()
                             printf("Choix non disponible!!");
                         break;
                     }
-                    printf("Voulez-vous rentrer au menu des modifications pour choisir un autre champ a modifier?(6/7)\n");
-                    scanf("%d",&choice);
-            }while(choice == 6);
+                    printf("Voulez-vous rentrer au menu des modifications pour choisir un autre champ a modifier?(1/0)\n");
+                    scanf("%d",&choix);
+            }while(choix == 1);
+            if (choix == 0)
+            {
+                system("cls");
+                GESTION_des_clients();
+            }
             printf("Changement effectue!!");
         }
         else//affiche un message dans le cas ou l'utilisteur entre une id qui n'existe pas dans le fichier
@@ -420,6 +427,10 @@ void GESTION_des_comptes()
             case 5:decompte();
             main();
             break;
+            default:
+                printf("Choix non disponible!!");
+                GESTION_des_comptes();
+            break;
 
      }
 
@@ -453,11 +464,12 @@ void nouveau_compte()
         fflush(stdin);
 
     }while(choix == 1);
-        if(choix==0){
-            system("cls");
-            GESTION_des_comptes();
+        if(choix==0)
+            {
+                system("cls");
+                GESTION_des_comptes();
             }
-                fclose(compte);
+            fclose(compte);
 }
 
 /*fin de procedure nouveau compte*/
@@ -467,16 +479,23 @@ void nouveau_compte()
  void consultation()
     {
         FILE *compte = NULL;
+        unsigned int id_C = 0;
         compte = fopen("compte.txt","r");
         printf("entrer l'id du compte a afficher :");
-     while (fscanf(compte,"%d; | %d; | %d; | %s; |\n",&comptes.id_compte,&comptes.id_client,&comptes.solde,comptes.derniere_operation)!=EOF);
+        scanf("%d",&id_C);
+        while(fscanf(compte,"%d",&comptes.id_compte) == 1)
         {
-            if(recherche_compte.id_compte==comptes.id_compte)
+            fgetc(compte);
+            fscanf(compte,"%[^]d",&comptes.id_client);
+            fgetc(compte);
+            fscanf(compte,"%[^]d",&comptes.solde);
+            fgetc(compte);
+            fscanf(compte,"%[^]s",comptes.derniere_operation);
+            fgetc(compte);
+            if(id_C == comptes.id_compte)
             {
-                printf("| %d; | %d; | %d; | %s; |\n",comptes.id_compte,comptes.id_client,comptes.solde,comptes.derniere_operation);
+                printf("| %d | %d | %d | %s |\n",comptes.id_compte,comptes.id_client,comptes.solde,comptes.derniere_operation);
             }
-
-
         }
 
         fclose(compte);
@@ -496,7 +515,7 @@ void fermeture_compte()
     printf("\t\t** SUPRESSION DE COMPTE **\n\n");
     printf("entrer le  numero d'identification du compte que vous voulez supprimer: ");
     scanf("%d",&id_C);
-     while (fscanf(compte,"%d | %d | %d | %s |\n",&comptes.id_compte,&comptes.id_client,&comptes.solde,comptes.derniere_operation)!=EOF);
+    while (fscanf(compte,"%d | %d | %d | %s |\n",&comptes.id_compte,&comptes.id_client,&comptes.solde,comptes.derniere_operation)!=EOF);
      {
          if(comptes.id_compte  != id_C )
          {
