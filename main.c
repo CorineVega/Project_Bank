@@ -239,15 +239,14 @@ void Ajout_client()
 /*PROCEDURE MODIFCATION CLIENT*/
 void Modification_client()
 {
-
-    Mise_jour Cli_modif;
+    unsigned int id_client = 0;
     FILE *client = NULL;
     FILE *fich_modifier;
     client = fopen("client.txt","r");
     fich_modifier = fopen("fich_modifier.txt","w");
     printf("** MODIFICATION DES DONNEES DES CLIENTS **: \n\n");
     printf("Entrez l'id du client dont vous voulez faire des modifications: ");
-    securite_id(&Cli_modif.id_client);
+    securite_id(&id_client);
     while(fscanf(client,"%d",&C.id_client) == 1)
     {
 
@@ -266,7 +265,7 @@ void Modification_client()
         fscanf(client,"%d",&C.date.mois);
         fgetc(client);
         fscanf(client,"%d",&C.date.annee);
-        if(Cli_modif.id_client == C.id_client)
+        if(id_client == C.id_client)
         {
            do
             {
@@ -280,30 +279,34 @@ void Modification_client()
                     {
                         case 1:
                             printf("Entrez le nouveau nom: \n");
-                            scanf("%s",Cli_modif.nom);
+                            scanf("%s",C.nom);
                         break;
                         case 2:
                             printf("Entrez le nouveau prenom: \n");
-                            scanf("%s",Cli_modif.prenom);
+                            scanf("%s",C.prenom);
                         break;
                         case 3:
                             printf("Entrez la nouvelle profession: \n");
-                            scanf("%s",Cli_modif.profession);
+                            scanf("%s",C.profession);
                         break;
                         case 4:
                             printf("Entrez le nouveau numero_tel: \n");
-                            scanf("%d",&Cli_modif.numero_tel);
+                            scanf("%d",&C.numero_tel);
                         break;
                         case 5:
                             printf("Entrez la nouvelle date: \n");
-                            scanf("%d/%d/%d",&Cli_modif.date.jour,&Cli_modif.date.mois,&Cli_modif.date.annee);
+                            scanf("%d/%d/%d",&C.date.jour,&C.date.mois,&C.date.annee);
+                        break;
+                        default:
+                            printf("Choix non disponible!!");
+                        break;
                     }
                     printf("Voulez-vous rentrer au menu des modifications pour choisir un autre champ a modifier?(6/7)\n");
                     scanf("%d",&choice);
             }while(choice == 6);
             printf("Changement effectue!!");
         }
-        fprintf(fich_modifier,"%u;%s;%s;%s;%u;%u/%u/%u\n",Cli_modif.id_client,Cli_modif.nom,Cli_modif.prenom,Cli_modif.profession, Cli_modif.numero_tel,Cli_modif.date.jour, Cli_modif.date.mois, Cli_modif.date.annee);
+        fprintf(fich_modifier,"%u;%s;%s;%s;%u;%u/%u/%u\n",C.id_client,C.nom,C.prenom,C.profession, C.numero_tel,C.date.jour, C.date.mois, C.date.annee);
     }
         fclose(client);
         fclose(fich_modifier);
@@ -333,7 +336,7 @@ void supression_client()
             printf("Veuillez entrer l'id du client que vous voulez suprimer: \n");
 
             securite_id(&c_sup.id_client);
-            while(fscanf(client,"%d",C.id_client) == 1)
+            while(fscanf(client,"%d",&C.id_client) == 1)
         {
             fgetc(client);
             fscanf(client,"%[^;]s",C.nom);
@@ -531,7 +534,7 @@ void nouveau_compte()
         FILE *compte = NULL;
         compte = fopen("compte.txt","r");
         printf("entrer l'id du compte a afficher :");
-        scanf("%d",&recherche_compte.id_compte);
+        securite_id(&recherche_compte.id_compte);
      while (fscanf(compte,"%d; | %d; | %d; | %s; |\n",&comptes.id_compte,&comptes.id_client,&comptes.solde,comptes.derniere_operation)!=EOF);
         {
             if(recherche_compte.id_compte==comptes.id_compte)
