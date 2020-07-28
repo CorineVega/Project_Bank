@@ -100,45 +100,63 @@ void GESTION_des_clients()
 /*procedure d'ajout d'un client*/
 void Ajout_client()
 {
+    unsigned int id = 0;
     int choix = 1;
     FILE *client = NULL;
-    client = fopen("Client.txt","a");
-    do
+    client = fopen("Client.txt","a+");
+    system("cls");
+    printf("\n\n\n\t\t\t\xB2\xB2\xB2\xB2\xB2\xB2\xB2 ** AJOUT D'UN CLIENT **\xB2\xB2\xB2\xB2\xB2\xB2\xB2\n\n");
+    printf("Entrez l'identifiant du client: \n");
+    scanf("%d",&id);
+    while(fscanf(client,"%d",&C.id_client) == 1)
     {
+        /*fgetc(client);
+        fscanf(client,"%[^;]s",C.nom);
+        fgetc(client);
+        fscanf(client,"%[^;]s",C.prenom);
+        fgetc(client);
+        fscanf(client,"%[^;]s",C.profession);
+        fgetc(client);
+        fscanf(client,"%d",&C.numero_tel);
+        fgetc(client);
+        fscanf(client,"%d",&C.date.jour);
+        fgetc(client);
+        fscanf(client,"%d",&C.date.mois);
+        fgetc(client);
+        fscanf(client,"%d",&C.date.annee); */
+        if(id != C.id_client)
+        {
+            C.id_client = id;
+            printf("Entrez le nom du client: \n");
+            scanf("%s",C.nom);
+            fflush(stdin);
+            printf("Entrez le prenom du client: \n");
+            scanf("%s",C.prenom);
+            fflush(stdin);
+            printf("Entrez sa profession: \n");
+            scanf("%s",C.profession);
+            fflush(stdin);
+            printf("Entrez le numero_tel du client: \n");
+            scanf("%d",&C.numero_tel);
+            printf("Entrez la date d'ajout du client: \n");
+            scanf("%d/%d/%d",&C.date.jour,&C.date.mois,&C.date.annee);//ici, on récupère la date du jour d'ajout du client
+            printf("ID_client: %u \n NOM: %s \n PRENOM: %s \n PROFESSION: %s \n NUM_TEL: %u \n DATE_D'AJOUT: %u/%u/%u \n",C.id_client,C.nom,C.prenom,C.profession, C.numero_tel,C.date.jour, C.date.mois, C.date.annee);
+            fprintf(client,"%u;%s;%s;%s;%u;%u/%u/%u\n",C.id_client,C.nom,C.prenom,C.profession, C.numero_tel,C.date.jour, C.date.mois, C.date.annee);
+            printf("Voulez-vous continuer d'ajouter les clients? (1/0) \n");
+            scanf("%d",&choix);
 
-        system("cls");
-        printf("\n\n\n\t\t\t\xB2\xB2\xB2\xB2\xB2\xB2\xB2 ** AJOUT D'UN CLIENT **\xB2\xB2\xB2\xB2\xB2\xB2\xB2\n\n");
-        ENTRER:
-        printf("Entrez l'identifiant du client: \n");
-        scanf("%d",&check.id_client);
-        fflush(stdin);
-        if(check.id_client == C.id_client)
+        }
+        else
         {
-            printf("UN CLIENTS A DEJA CET IDENTIFIANT\n ");
-            printf("veuillez entrer un autre svp\n");
-            printf("Entrez l'identifiant du client: \n");
-            goto ENTRER;
-        } else
-        {
-        C.id_client=check.id_client;
-        fflush(stdin);
-        printf("Entrez le nom du client: \n");
-        scanf("%s",C.nom);
-        fflush(stdin);
-        printf("Entrez le prenom du client: \n");
-        scanf("%s",C.prenom);
-        fflush(stdin);
-        printf("Entrez sa profession: \n");
-        scanf("%s",C.profession);
-        fflush(stdin);
-        printf("Entrez le numero_tel du client: \n");
-        scanf("%d",&C.numero_tel);
-        printf("Entrez la date d'ajout du client: \n");
-        scanf("%d/%d/%d",&C.date.jour,&C.date.mois,&C.date.annee);//ici, on récupère la date du jour d'ajout du client
-        printf("ID_client: %u \n NOM: %s \n PRENOM: %s \n PROFESSION: %s \n NUM_TEL: %u \n DATE_D'AJOUT: %u/%u/%u \n",C.id_client,C.nom,C.prenom,C.profession, C.numero_tel,C.date.jour, C.date.mois, C.date.annee);
-        fprintf(client,"%u;%s;%s;%s;%u;%u/%u/%u\n",C.id_client,C.nom,C.prenom,C.profession, C.numero_tel,C.date.jour, C.date.mois, C.date.annee);
-        printf("Voulez-vous continuer d'ajouter les clients? (1/0) \n");
-        scanf("%d",&choix);
+            do
+            {
+                  printf("Cet identifiant existe deja!!(Veuillez entrer un autre identifiant): \n");
+                  scanf("%d",&id);
+                  Ajout_client();
+            }
+            while(id == C.id_client);
+
+        }
         }
         if (choix ==0)
            {
@@ -149,11 +167,7 @@ void Ajout_client()
            {
               Ajout_client();
            }
-
-
-        }while(choix == 1);
-
-    fclose(client);
+           fclose(client);
 }
 /*FINDE PROCEDURE AJOUT CLIENTS*/
 
@@ -226,6 +240,10 @@ void Modification_client()
                     scanf("%d",&choice);
             }while(choice == 6);
             printf("Changement effectue!!");
+        }
+        else if(id != C.id_client)//affiche un message dans le cas ou l'utilisteur entre une id qui n'existe pas dans le fichier
+        {   printf("Cette id n'existe pas dans le fichier client: \n");
+            Modification_client();
         }
         fprintf(fich_modifier,"%u;%s;%s;%s;%u;%u/%u/%u\n",C.id_client,C.nom,C.prenom,C.profession, C.numero_tel,C.date.jour, C.date.mois, C.date.annee);
     }
