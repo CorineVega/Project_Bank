@@ -193,7 +193,6 @@ void Ajout_client()
         printf("\n\n\n\t\t\t\xB2\xB2\xB2\xB2\xB2\xB2\xB2 ** AJOUT D'UN CLIENT **\xB2\xB2\xB2\xB2\xB2\xB2\xB2\n\n");
         ENTRER:
         printf("Entrez l'identifiant du client: \n");
-
         scanf("%d",&check.id_client);
         fflush(stdin);
         if(check.id_client == C.id_client)
@@ -392,7 +391,7 @@ void supression_client()
             fscanf(client,"%d",&C.date.mois);
             fgetc(client);
             fscanf(client,"%d",&C.date.annee);
-            if(strcmp(C.nom, c_sup.nom) == 1)
+            if(strcmp(C.nom, c_sup.nom) == 0)
             {
                 fprintf(fich_sup,"%u;%s;%s;%s;%u;%u/%u/%u\n",c_sup.id_client,c_sup.nom,c_sup.prenom,c_sup.profession,c_sup.numero_tel,c_sup.date.jour,c_sup.date.mois,c_sup.date.annee);
             }
@@ -575,6 +574,7 @@ void fermeture_compte()
 
 /*procedure affichage des comptes*/
 void affichage_compte()
+
     {
         int test =0;
        FILE *compte = fopen("compte.txt","r");
@@ -719,14 +719,13 @@ int main()
     switch(choix)
     {
         case 1:decompte();
-                GESTION_des_clients();
+               GESTION_des_clients();
         break;
         case 2:decompte();
-            GESTION_des_comptes();
+               GESTION_des_comptes();
         break;
-        case 3:
-            decompte();
-            GESTION_des_operation();
+        case 3:decompte();
+               GESTION_des_operation();
         break;
         case 4:QUITTEZ();
         break;
