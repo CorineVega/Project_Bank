@@ -22,7 +22,6 @@ void virement();
 void fordelay(int j);
 void decompte();
 int petite_recherche(unsigned int id);
-
 int main();
 /*fin des prototypes*/
 
@@ -121,56 +120,15 @@ int petite_recherche(unsigned int numero)
 
 
 void Ajout_client()
-<<<<<<< HEAD
-{
-    int choix = 1;
-    int id=0;
-=======
+
 {
     unsigned int id = 0;
     int choix = 1;
->>>>>>> 318fe39eab3ca52323186c9a943c8cb981bbd529
+
     FILE *client = NULL;
     client = fopen("Client.txt","a+");
     system("cls");
     printf("\n\n\n\t\t\t\xB2\xB2\xB2\xB2\xB2\xB2\xB2 ** AJOUT D'UN CLIENT **\xB2\xB2\xB2\xB2\xB2\xB2\xB2\n\n");
-
-<<<<<<< HEAD
-        system("cls");
-        printf("\n\n\n\t\t\t\xB2\xB2\xB2\xB2\xB2\xB2\xB2 ** AJOUT D'UN CLIENT **\xB2\xB2\xB2\xB2\xB2\xB2\xB2\n\n");
-        ENTRER:
-        printf("Entrez l'identifiant du client: \n");
-        scanf("%d",&id);
-        fflush(stdin);
-        if(id == C.id_client)
-        {
-            printf("UN CLIENTS A DEJA CET IDENTIFIANT\n ");
-            printf("veuillez entrer un autre svp\n");
-            printf("Entrez l'identifiant du client: \n");
-            goto ENTRER;
-        } else
-        {
-        C.id_client=id;
-        fflush(stdin);
-        printf("Entrez le nom du client: \n");
-        scanf("%s",C.nom);
-        fflush(stdin);
-        printf("Entrez le prenom du client: \n");
-        scanf("%s",C.prenom);
-        fflush(stdin);
-        printf("Entrez sa profession: \n");
-        scanf("%s",C.profession);
-        fflush(stdin);
-        printf("Entrez le numero_tel du client: \n");
-        scanf("%d",&C.numero_tel);
-        printf("Entrez la date d'ajout du client: \n");
-        scanf("%d/%d/%d",&C.date.jour,&C.date.mois,&C.date.annee);//ici, on récupère la date du jour d'ajout du client
-        printf("ID_client: %u \n NOM: %s \n PRENOM: %s \n PROFESSION: %s \n NUM_TEL: %u \n DATE_D'AJOUT: %u/%u/%u \n",C.id_client,C.nom,C.prenom,C.profession, C.numero_tel,C.date.jour, C.date.mois, C.date.annee);
-        fprintf(client,"%u;%s;%s;%s;%u;%u/%u/%u\n",C.id_client,C.nom,C.prenom,C.profession, C.numero_tel,C.date.jour, C.date.mois, C.date.annee);
-        printf("Voulez-vous continuer d'ajouter les clients? (1/0) \n");
-        scanf("%d",&choix);
-        }
-=======
     printf("Entrez l'identifiant du client: \n");
     scanf("%d",&id);
     while(petite_recherche(id) == 1)
@@ -198,7 +156,6 @@ void Ajout_client()
     printf("Voulez-vous continuer d'ajouter les clients? (1/0) \n");
     scanf("%d",&choix);
 
->>>>>>> 318fe39eab3ca52323186c9a943c8cb981bbd529
         if (choix ==0)
            {
                system("cls");
