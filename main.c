@@ -21,6 +21,8 @@ void supression_client();
 void virement();
 void fordelay(int j);
 void decompte();
+int petite_recherche(unsigned int id);
+
 int main();
 /*fin des prototypes*/
 
@@ -98,6 +100,26 @@ void GESTION_des_clients()
 /*fin de procedures gestion client*/
 
 /*procedure d'ajout d'un client*/
+
+int petite_recherche(unsigned int numero)
+{
+  FILE *client = NULL;
+  fopen("client.txt","r+");
+  int lu, n;
+  do
+  {
+      lu = fscanf(client,"%[^;]d",&n);
+      if (n == numero)
+      {
+          fclose(client);
+          return 1;
+      }
+  }while(lu != EOF);
+  fclose(client);
+  return -1;
+}
+
+
 void Ajout_client()
 {
     unsigned int id = 0;
@@ -106,64 +128,40 @@ void Ajout_client()
     client = fopen("Client.txt","a+");
     system("cls");
     printf("\n\n\n\t\t\t\xB2\xB2\xB2\xB2\xB2\xB2\xB2 ** AJOUT D'UN CLIENT **\xB2\xB2\xB2\xB2\xB2\xB2\xB2\n\n");
+
     printf("Entrez l'identifiant du client: \n");
     scanf("%d",&id);
-    while(fscanf(client,"%d",&C.id_client) == 1)
+    while(petite_recherche(id) == 1)
     {
-        /*fgetc(client);
-        fscanf(client,"%[^;]s",C.nom);
-        fgetc(client);
-        fscanf(client,"%[^;]s",C.prenom);
-        fgetc(client);
-        fscanf(client,"%[^;]s",C.profession);
-        fgetc(client);
-        fscanf(client,"%d",&C.numero_tel);
-        fgetc(client);
-        fscanf(client,"%d",&C.date.jour);
-        fgetc(client);
-        fscanf(client,"%d",&C.date.mois);
-        fgetc(client);
-        fscanf(client,"%d",&C.date.annee); */
-        if(id != C.id_client)
-        {
-            C.id_client = id;
-            printf("Entrez le nom du client: \n");
-            scanf("%s",C.nom);
-            fflush(stdin);
-            printf("Entrez le prenom du client: \n");
-            scanf("%s",C.prenom);
-            fflush(stdin);
-            printf("Entrez sa profession: \n");
-            scanf("%s",C.profession);
-            fflush(stdin);
-            printf("Entrez le numero_tel du client: \n");
-            scanf("%d",&C.numero_tel);
-            printf("Entrez la date d'ajout du client: \n");
-            scanf("%d/%d/%d",&C.date.jour,&C.date.mois,&C.date.annee);//ici, on récupère la date du jour d'ajout du client
-            printf("ID_client: %u \n NOM: %s \n PRENOM: %s \n PROFESSION: %s \n NUM_TEL: %u \n DATE_D'AJOUT: %u/%u/%u \n",C.id_client,C.nom,C.prenom,C.profession, C.numero_tel,C.date.jour, C.date.mois, C.date.annee);
-            fprintf(client,"%u;%s;%s;%s;%u;%u/%u/%u\n",C.id_client,C.nom,C.prenom,C.profession, C.numero_tel,C.date.jour, C.date.mois, C.date.annee);
-            printf("Voulez-vous continuer d'ajouter les clients? (1/0) \n");
-            scanf("%d",&choix);
+        printf("Ce client existe deja!!");
+        printf("Entrer l'id du client: \n");
+        scanf("%d",&id);
+    }
+    C.id_client = id;
+    printf("Entrez le nom du client: \n");
+    scanf("%s",C.nom);
+    fflush(stdin);
+    printf("Entrez le prenom du client: \n");
+    scanf("%s",C.prenom);
+    fflush(stdin);
+    printf("Entrez sa profession: \n");
+    scanf("%s",C.profession);
+    fflush(stdin);
+    printf("Entrez le numero_tel du client: \n");
+    scanf("%d",&C.numero_tel);
+    printf("Entrez la date d'ajout du client: \n");
+    scanf("%d/%d/%d",&C.date.jour,&C.date.mois,&C.date.annee);//ici, on récupère la date du jour d'ajout du client
+    printf("ID_client: %u \n NOM: %s \n PRENOM: %s \n PROFESSION: %s \n NUM_TEL: %u \n DATE_D'AJOUT: %u/%u/%u \n",C.id_client,C.nom,C.prenom,C.profession, C.numero_tel,C.date.jour, C.date.mois, C.date.annee);
+    fprintf(client,"%u;%s;%s;%s;%u;%u/%u/%u\n",C.id_client,C.nom,C.prenom,C.profession, C.numero_tel,C.date.jour, C.date.mois, C.date.annee);
+    printf("Voulez-vous continuer d'ajouter les clients? (1/0) \n");
+    scanf("%d",&choix);
 
-        }
-        else
-        {
-            do
-            {
-                  printf("Cet identifiant existe deja!!(Veuillez entrer un autre identifiant): \n");
-                  scanf("%d",&id);
-                  Ajout_client();
-            }
-            while(id == C.id_client);
-
-        }
-        }
         if (choix ==0)
            {
-
-            system("cls");
-            GESTION_des_clients();
-           } else if(choix == 1)
+               system("cls");
+               GESTION_des_clients();
+           }
+           else if(choix == 1)
            {
               Ajout_client();
            }
@@ -241,7 +239,7 @@ void Modification_client()
             }while(choice == 6);
             printf("Changement effectue!!");
         }
-        else if(id != C.id_client)//affiche un message dans le cas ou l'utilisteur entre une id qui n'existe pas dans le fichier
+        else//affiche un message dans le cas ou l'utilisteur entre une id qui n'existe pas dans le fichier
         {   printf("Cette id n'existe pas dans le fichier client: \n");
             Modification_client();
         }
@@ -260,7 +258,8 @@ void Modification_client()
 void supression_client()
 {
     int choix = 1;
-    CLIENT c_sup;
+    char nom[15] = " ";
+    unsigned int id = 0;
     FILE *client = NULL;
     FILE *fich_sup = NULL;
     fopen("client.txt","r");
@@ -273,6 +272,7 @@ void supression_client()
     {
         case 1:
             printf("Veuillez entrer l'id du client que vous voulez suprimer: \n");
+            scanf("%d",id);
             while(fscanf(client,"%d",&C.id_client) == 1)
         {
             fgetc(client);
@@ -289,16 +289,16 @@ void supression_client()
             fscanf(client,"%d",&C.date.mois);
             fgetc(client);
             fscanf(client,"%d",&C.date.annee);
-            if (C.id_client != c_sup.id_client)
+            if (id != C.id_client)
             {
-                fprintf(fich_sup,"%d;%s;%s;%s;%d;%d/%d/%d\n",c_sup.id_client,c_sup.nom,c_sup.prenom,c_sup.profession,c_sup.numero_tel,c_sup.date.jour, c_sup.date.mois, c_sup.date.annee);
+                fprintf(fich_sup,"%d;%s;%s;%s;%d;%d/%d/%d\n",C.id_client,C.nom,C.prenom,C.profession,C.numero_tel,C.date.jour, C.date.mois, C.date.annee);
             }
         }
         fclose(client);
         fclose(fich_sup);
         choice:
         printf("voulez-vous confirmer la suppression?(1/0): ");
-            scanf("%d",&choix);
+        scanf("%d",&choix);
             if(choix == 1)
             {
                 printf("\n\n");
@@ -313,7 +313,7 @@ void supression_client()
         break;
         case 2:
             printf("Veuillez entrer le nom du client que vous voulez supprimer: ");
-            scanf("%s",c_sup.nom);
+            scanf("%s",nom);
 
             while(fscanf(client,"%d",&C.id_client) == 1)
 
@@ -332,9 +332,9 @@ void supression_client()
             fscanf(client,"%d",&C.date.mois);
             fgetc(client);
             fscanf(client,"%d",&C.date.annee);
-            if(strcmp(C.nom, c_sup.nom) == 0)
+            if(strcmp(nom, C.nom) == 0)
             {
-                fprintf(fich_sup,"%u;%s;%s;%s;%u;%u/%u/%u\n",c_sup.id_client,c_sup.nom,c_sup.prenom,c_sup.profession,c_sup.numero_tel,c_sup.date.jour,c_sup.date.mois,c_sup.date.annee);
+                fprintf(fich_sup,"%u;%s;%s;%s;%u;%u/%u/%u\n",C.id_client,C.nom,C.prenom,C.profession,C.numero_tel,C.date.jour,C.date.mois,C.date.annee);
             }
         }
             fclose(client);
@@ -489,17 +489,18 @@ void nouveau_compte()
 void fermeture_compte()
 {
     FILE *compte = NULL;
+    unsigned int id_C = 0;
     compte = fopen("compte.txt","r");
     FILE *supp_compte=NULL;
     supp_compte = fopen("supp_compte.txt","w");
-    printf("\t\t** SUPRESSION DE CLIENT **\n\n");
+    printf("\t\t** SUPRESSION DE COMPTE **\n\n");
     printf("entrer le  numero d'identification du compte que vous voulez supprimer: ");
-    scanf("%d",&check.id_compte);
-     while (fscanf(compte,"%d; | %d; | %d; | %s; |\n",&comptes.id_compte,&comptes.id_client,&comptes.solde,comptes.derniere_operation)!=EOF);
+    scanf("%d",&id_C);
+     while (fscanf(compte,"%d | %d | %d | %s |\n",&comptes.id_compte,&comptes.id_client,&comptes.solde,comptes.derniere_operation)!=EOF);
      {
-         if(comptes.id_compte  != check.id_compte )
+         if(comptes.id_compte  != id_C )
          {
-            fprintf(supp_compte,"%d; | %d; | %d; | %s; |\n",comptes.id_compte,comptes.id_client,comptes.solde,comptes.derniere_operation);
+            fprintf(supp_compte,"%d | %d | %d | %s |\n",comptes.id_compte,comptes.id_client,comptes.solde,comptes.derniere_operation);
          }
      }
      fclose(compte);
