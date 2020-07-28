@@ -98,94 +98,11 @@ void GESTION_des_clients()
 /*fin de procedures gestion client*/
 
 /*procedure d'ajout d'un client*/
-
-
-int valid(char *chaine ,int option)
-{
-    if(option == 1)
-    {
-        if(strlen(chaine) > 9)
-            return 0;
-        int items_in_array = 0;
-        char caracteres_autorises[] = "0123456789";
-        for(int j = 0; j<9 ;j++)
-        {
-            for(int k = 0; k<10 ;k++)
-            {
-                if(chaine[j] == caracteres_autorises[k])
-                {
-                    items_in_array++;
-                    break;
-                }
-            }
-        }
-        if(items_in_array == 9)
-            return 1;
-        else
-            return 0;
-    }
-    else if(option == 2)
-    {
-        for(int j = 0 ;j<strlen(chaine) ;j++)
-        {
-            if((chaine[j] < 65 || chaine[j] > 91) && (chaine[j] < 97 || chaine[j] > 123 || strlen(chaine) < 3 || strlen(chaine) > 49))
-                return 0;
-        }
-        return 1;
-    }
-    else if(option == 3)
-    {
-        if((atoi(chaine) < 13 || atoi(chaine) > 35))
-            return 0;
-        else
-            return 1;
-    }
-    else if(option == 4)
-    {
-        char caracteres_autorises[] = "0123456789.";
-        for(int j = 0; j<strlen(chaine) ;j++)
-        {
-            if(!strrchr(caracteres_autorises ,chaine[j]) || (atof(chaine) < 0 || atof(chaine) > 20))
-                return 0;
-        }
-        return 1;
-    }
-}
-
-
-void lire(char *tab)
-{
-    fgets(tab ,200 ,stdin);
-    int j = 0;
-    while(tab[j] != '\n')
-        j++;
-    tab[j] = '\0';
-}
-
-
-
-void securite_id( int * id_client)
-{
-    char id_client_char[15] = "";
-    do
-    {
-        lire(id_client_char);
-        if(!valid(id_client_char ,1))
-        {
-            printf("\n\n\tNumero d'ID Invalide(ne doit contenir que 9 chiffres de 0 a 9) !\n\n");
-            printf("\tEntrer le Numero d'ID > ");
-        }
-    }while(!valid(id_client_char ,1));
-    *id_client = atoi(id_client_char);
-}
-
-
-
 void Ajout_client()
 {
     int choix = 1;
     FILE *client = NULL;
-    client = fopen("Client.txt","a+");
+    client = fopen("Client.txt","a");
     do
     {
 
@@ -193,7 +110,6 @@ void Ajout_client()
         printf("\n\n\n\t\t\t\xB2\xB2\xB2\xB2\xB2\xB2\xB2 ** AJOUT D'UN CLIENT **\xB2\xB2\xB2\xB2\xB2\xB2\xB2\n\n");
         ENTRER:
         printf("Entrez l'identifiant du client: \n");
-
         scanf("%d",&check.id_client);
         fflush(stdin);
         if(check.id_client == C.id_client)
@@ -205,8 +121,6 @@ void Ajout_client()
         } else
         {
         C.id_client=check.id_client;
-
-        securite_id(&C.id_client);
         fflush(stdin);
         printf("Entrez le nom du client: \n");
         scanf("%s",C.nom);
@@ -227,8 +141,15 @@ void Ajout_client()
         scanf("%d",&choix);
         }
         if (choix ==0)
+           {
+
             system("cls");
             GESTION_des_clients();
+           } else if(choix == 1)
+           {
+              Ajout_client();
+           }
+
 
         }while(choix == 1);
 
@@ -239,14 +160,14 @@ void Ajout_client()
 /*PROCEDURE MODIFCATION CLIENT*/
 void Modification_client()
 {
-    unsigned int id_client = 0;
+    unsigned int id = 0;
     FILE *client = NULL;
     FILE *fich_modifier;
     client = fopen("client.txt","r");
     fich_modifier = fopen("fich_modifier.txt","w");
     printf("** MODIFICATION DES DONNEES DES CLIENTS **: \n\n");
     printf("Entrez l'id du client dont vous voulez faire des modifications: ");
-    securite_id(&id_client);
+    scanf("%d",&id);
     while(fscanf(client,"%d",&C.id_client) == 1)
     {
 
@@ -265,7 +186,7 @@ void Modification_client()
         fscanf(client,"%d",&C.date.mois);
         fgetc(client);
         fscanf(client,"%d",&C.date.annee);
-        if(id_client == C.id_client)
+        if(id == C.id_client)
         {
            do
             {
@@ -334,8 +255,6 @@ void supression_client()
     {
         case 1:
             printf("Veuillez entrer l'id du client que vous voulez suprimer: \n");
-
-            securite_id(&c_sup.id_client);
             while(fscanf(client,"%d",&C.id_client) == 1)
         {
             fgetc(client);
@@ -395,7 +314,7 @@ void supression_client()
             fscanf(client,"%d",&C.date.mois);
             fgetc(client);
             fscanf(client,"%d",&C.date.annee);
-            if(strcmp(C.nom, c_sup.nom) == 1)
+            if(strcmp(C.nom, c_sup.nom) == 0)
             {
                 fprintf(fich_sup,"%u;%s;%s;%s;%u;%u/%u/%u\n",c_sup.id_client,c_sup.nom,c_sup.prenom,c_sup.profession,c_sup.numero_tel,c_sup.date.jour,c_sup.date.mois,c_sup.date.annee);
             }
@@ -431,8 +350,6 @@ void recherche_client()
     client = fopen("client.txt","r+");
     printf("** RECHERCHE D'UN CLIENT** \n");
     printf("Enter l'id du client que vous chercher: ");
-
-    securite_id(&C_rech.id_client);
     while(fscanf(client,"%u;\t%s;\t%s;\t%s;\t%u;\t%u/%u/%u\n",&C.id_client,C.nom,C.prenom,C.profession,&C.numero_tel,&C.date.jour, &C.date.mois, &C.date.annee) != EOF)
 
     {
@@ -534,7 +451,6 @@ void nouveau_compte()
         FILE *compte = NULL;
         compte = fopen("compte.txt","r");
         printf("entrer l'id du compte a afficher :");
-        securite_id(&recherche_compte.id_compte);
      while (fscanf(compte,"%d; | %d; | %d; | %s; |\n",&comptes.id_compte,&comptes.id_client,&comptes.solde,comptes.derniere_operation)!=EOF);
         {
             if(recherche_compte.id_compte==comptes.id_compte)
@@ -578,6 +494,7 @@ void fermeture_compte()
 
 /*procedure affichage des comptes*/
 void affichage_compte()
+
     {
         int test =0;
        FILE *compte = fopen("compte.txt","r");
@@ -722,14 +639,13 @@ int main()
     switch(choix)
     {
         case 1:decompte();
-                GESTION_des_clients();
+               GESTION_des_clients();
         break;
         case 2:decompte();
-            GESTION_des_comptes();
+               GESTION_des_comptes();
         break;
-        case 3:
-            decompte();
-            GESTION_des_operation();
+        case 3:decompte();
+               GESTION_des_operation();
         break;
         case 4:QUITTEZ();
         break;
