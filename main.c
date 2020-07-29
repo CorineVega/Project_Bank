@@ -129,12 +129,9 @@ void Ajout_client()
     FILE *client = NULL;
     client = fopen("Client.txt","a+");
     system("cls");
-<<<<<<< HEAD
-    printf("\n\n\n\t\t\t\xB2\xB2\xB2\xB2\xB2\xB2\xB2 ** AJOUT D'UN CLIENT **\xB2\xB2\xB2\xB2\xB2\xB2\xB2\n\n");
-=======
+
     printf("\n\n\n\t\t\t\xB2\xB2\xB2\xB2\xB2\xB2\xB2 ** AJOUT D'UN CLIENT **\xB2\xB2\xB2\xB2\xB2\xB2\xB2\n\n");
     system("cls");
->>>>>>> d5382d60de83b38e393699105e858fabd065249f
     printf("Entrez l'identifiant du client: \n");
     scanf("%d",&id);
     while(petite_recherche(id) == 1)
